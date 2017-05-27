@@ -20,6 +20,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".BookingActivity" />
         <activity android:name=".RoleActivity" />
+        <activity android:name=".PoolActivity"/>
     </application>
 
 </manifest>

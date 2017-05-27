@@ -4,6 +4,7 @@ import java.util.Calendar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
@@ -18,8 +19,13 @@ public class BookingActivity extends AppCompatActivity {
     private EditText dateFieldText;
     private EditText fromTimeField;
     private EditText toTimeField;
-    private int year, month, day;
-    private int fromHour, toHour, fromMinute, toMinute;
+    private int year = -1;
+    private int month = -1;
+    private int day = -1;
+    private int fromHour = -1;
+    private int toHour = -1;
+    private int fromMinute = -1;
+    private int toMinute = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,16 +125,52 @@ public class BookingActivity extends AppCompatActivity {
 
     public void clickTripBookingFormButton(View view)
     {
-        // Intent to fire Jameson's view
-        // Intent fireGroups = new Intent(this, BookingActivity.class);
+        // Intent to fire the pool activity.
+        Intent fireGroups = new Intent(this, PoolActivity.class);
         switch(view.getId())
         {
             case R.id.cancelButton:
                 break;
             case R.id.submitButton:
-                // TODO fire next view with params in the intent
+                // When firing the pool activity put the user selections into extra.
                 // fireGroups.putExtra("...", "...");
-                // startActivity(fireGroups);
+                if (year != -1) {
+                    fireGroups.putExtra("year", year);
+                }
+
+                if (month != -1) {
+                    fireGroups.putExtra("month", month);
+                }
+
+                if (day != -1) {
+                    fireGroups.putExtra("day", day);
+                }
+
+                if (fromTimeField.getText().length() > 0) {
+                    fireGroups.putExtra("from", fromTimeField.getText());
+                }
+
+                if (toTimeField.getText().length() > 0) {
+                    fireGroups.putExtra("to", toTimeField.getText());
+                }
+
+                if (fromHour != -1) {
+                    fireGroups.putExtra("fromHour", fromHour);
+                }
+
+                if (fromMinute != -1) {
+                    fireGroups.putExtra("fromMinute", fromMinute);
+                }
+
+                if (toHour != -1) {
+                    fireGroups.putExtra("toHour", toHour);
+                }
+
+                if (toMinute != -1) {
+                    fireGroups.putExtra("toMinute", toMinute);
+                }
+
+                startActivity(fireGroups);
 
                 // TODO Make request to server
                 break;
