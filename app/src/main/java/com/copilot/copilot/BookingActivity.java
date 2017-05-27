@@ -15,11 +15,11 @@ import android.util.Log;
 
 public class BookingActivity extends AppCompatActivity {
     private Calendar calendar;
-    private EditText editText;
+    private EditText dateFieldText;
     private EditText fromTimeField;
     private EditText toTimeField;
     private int year, month, day;
-    private int hour, minute;
+    private int fromHour, toHour, fromMinute, toMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class BookingActivity extends AppCompatActivity {
             Log.e("BookingActivity", "Expected intent to contain a valid role extra, but was found not to be.");
         }
 
-        editText = (EditText) findViewById(R.id.dateField);
+        dateFieldText = (EditText) findViewById(R.id.dateField);
         fromTimeField = (EditText) findViewById(R.id.fromTimeField);
         toTimeField = (EditText) findViewById(R.id.toTimeField);
         calendar = Calendar.getInstance();
@@ -47,22 +47,22 @@ public class BookingActivity extends AppCompatActivity {
         fromTimeField.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                fireTimePicker(v, fromTimeField);
+                fireFromTimePicker(v, fromTimeField);
             }
         });
 
         toTimeField.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                fireTimePicker(v, toTimeField);
+                fireToTimePicker(v, toTimeField);
             }
         });
     }
 
-    private void fireTimePicker(View v, final EditText timeField) {
+    private void fireFromTimePicker(View v, final EditText timeField) {
         Calendar currentTime = Calendar.getInstance();
-        hour = currentTime.get(Calendar.HOUR_OF_DAY);
-        minute = currentTime.get(Calendar.MINUTE);
+        fromHour = currentTime.get(Calendar.HOUR_OF_DAY);
+        fromMinute = currentTime.get(Calendar.MINUTE);
 
         TimePickerDialog timePicker;
         timePicker = new TimePickerDialog(BookingActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -70,7 +70,23 @@ public class BookingActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 timeField.setText(selectedHour + ":" + selectedMinute);
             }
-        }, hour, minute, true);
+        }, fromHour, fromMinute, true);
+        timePicker.setTitle("Select Time");
+        timePicker.show();
+    }
+
+    private void fireToTimePicker(View v, final EditText timeField) {
+        Calendar currentTime = Calendar.getInstance();
+        toHour = currentTime.get(Calendar.HOUR_OF_DAY);
+        toMinute = currentTime.get(Calendar.MINUTE);
+
+        TimePickerDialog timePicker;
+        timePicker = new TimePickerDialog(BookingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                timeField.setText(selectedHour + ":" + selectedMinute);
+            }
+        }, toHour, toMinute, true);
         timePicker.setTitle("Select Time");
         timePicker.show();
     }
@@ -98,7 +114,7 @@ public class BookingActivity extends AppCompatActivity {
             };
 
     private void showDate(int year, int month, int day) {
-        editText.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));
+        dateFieldText.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));
     }
 
     public void clickTripBookingFormButton(View view)
