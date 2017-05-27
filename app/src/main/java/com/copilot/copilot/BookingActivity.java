@@ -19,6 +19,7 @@ public class BookingActivity extends AppCompatActivity {
     private EditText fromTimeField;
     private EditText toTimeField;
     private int year, month, day;
+    private int hour, minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,8 @@ public class BookingActivity extends AppCompatActivity {
 
     private void fireTimePicker(View v, final EditText timeField) {
         Calendar currentTime = Calendar.getInstance();
-        int hour = currentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = currentTime.get(Calendar.MINUTE);
+        hour = currentTime.get(Calendar.HOUR_OF_DAY);
+        minute = currentTime.get(Calendar.MINUTE);
 
         TimePickerDialog timePicker;
         timePicker = new TimePickerDialog(BookingActivity.this, new TimePickerDialog.OnTimeSetListener() {
