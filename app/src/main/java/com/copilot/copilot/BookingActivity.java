@@ -16,7 +16,8 @@ import android.util.Log;
 public class BookingActivity extends AppCompatActivity {
     private Calendar calendar;
     private EditText editText;
-    private EditText timeField;
+    private EditText fromTimeField;
+    private EditText toTimeField;
     private int year, month, day;
 
     @Override
@@ -33,7 +34,8 @@ public class BookingActivity extends AppCompatActivity {
         }
 
         editText = (EditText) findViewById(R.id.dateField);
-        timeField = (EditText) findViewById(R.id.timeField);
+        fromTimeField = (EditText) findViewById(R.id.fromTimeField);
+        toTimeField = (EditText) findViewById(R.id.toTimeField);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
@@ -41,26 +43,35 @@ public class BookingActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month + 1, day);
 
-        timeField.setOnClickListener(new OnClickListener() {
-
+        fromTimeField.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar currentTime = Calendar.getInstance();
-                int hour = currentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = currentTime.get(Calendar.MINUTE);
-
-                TimePickerDialog timePicker;
-                timePicker = new TimePickerDialog(BookingActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeField.setText(selectedHour + ":" + selectedMinute);
-                    }
-                }, hour, minute, true);
-                timePicker.setTitle("Select Time");
-                timePicker.show();
-
+                fireTimePicker(v, fromTimeField);
             }
         });
+
+        toTimeField.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fireTimePicker(v, toTimeField);
+            }
+        });
+    }
+
+    private void fireTimePicker(View v, final EditText timeField) {
+        Calendar currentTime = Calendar.getInstance();
+        int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = currentTime.get(Calendar.MINUTE);
+
+        TimePickerDialog timePicker;
+        timePicker = new TimePickerDialog(BookingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                timeField.setText(selectedHour + ":" + selectedMinute);
+            }
+        }, hour, minute, true);
+        timePicker.setTitle("Select Time");
+        timePicker.show();
     }
 
     @SuppressWarnings("deprecation")
@@ -89,7 +100,7 @@ public class BookingActivity extends AppCompatActivity {
         editText.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));
     }
 
-    public void clickRoleButton(View view)
+    public void clickTripBookingFormButton(View view)
     {
         // Intent to fire Jameson's view
         // Intent fireGroups = new Intent(this, BookingActivity.class);

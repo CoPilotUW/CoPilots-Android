@@ -74,12 +74,26 @@
             android:layout_weight="0.25"
             android:text="Time" />
 
-        <EditText
-            android:id="@+id/timeField"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.75"
-            android:ems="10" />
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/fromTimeField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:ems="10" />
+
+            <EditText
+                android:id="@+id/toTimeField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:ems="10" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -100,7 +114,7 @@
 
             <Button
                 android:id="@+id/submitButton"
-                android:click="clickRoleButton"
+                android:onClick="clickTripBookingFormButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
@@ -108,7 +122,7 @@
 
             <Button
                 android:id="@+id/cancelButton"
-                android:click="clickRoleButton"
+                android:onClick="clickTripBookingFormButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
