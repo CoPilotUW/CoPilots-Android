@@ -1,12 +1,15 @@
 package com.copilot.copilot;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.SearchView;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -82,6 +85,19 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         // Locate the EditText in listview_main.xml
         editsearch = (SearchView) findViewById(R.id.search);
         editsearch.setOnQueryTextListener(this);
+
+        editsearch.setQueryHint("Search for rides...");
+        int searchPlateId = editsearch.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View searchPlate = editsearch.findViewById(searchPlateId);
+        if (searchPlate!=null) {
+            searchPlate.setBackgroundColor(Color.DKGRAY);
+            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
+            if (searchText!=null) {
+                searchText.setTextColor(Color.WHITE);
+                searchText.setHintTextColor(Color.WHITE);
+            }
+        }
 
         // Create the appropriate search filter views
         picker = new PoolSearchDatePicker(this, R.id.datePicker, adapter);
