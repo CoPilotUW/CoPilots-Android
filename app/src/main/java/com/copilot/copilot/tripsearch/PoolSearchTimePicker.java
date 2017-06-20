@@ -1,4 +1,4 @@
-package com.copilot.copilot;
+package com.copilot.copilot.tripsearch;
 
 import android.app.Activity;
 import android.app.TimePickerDialog;
@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.copilot.copilot.listitems.RiderListViewAdapterOld;
+
 import java.util.Calendar;
-import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -20,10 +21,10 @@ public abstract class PoolSearchTimePicker implements View.OnClickListener, OnTi
     protected int _hour;
     protected int _minute;
     protected Context _context;
-    protected RiderListViewAdapter _adapter;
+    protected RiderListViewAdapterOld _adapter;
 
 
-    public PoolSearchTimePicker(Context context, int editTextViewID, RiderListViewAdapter adapter)
+    public PoolSearchTimePicker(Context context, int editTextViewID, RiderListViewAdapterOld adapter)
     {
         Activity act = (Activity)context;
         this._editText = (EditText)act.findViewById(editTextViewID);

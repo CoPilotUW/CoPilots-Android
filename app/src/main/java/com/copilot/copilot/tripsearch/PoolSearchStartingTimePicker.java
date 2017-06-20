@@ -1,13 +1,15 @@
-package com.copilot.copilot;
+package com.copilot.copilot.tripsearch;
 
 import android.content.Context;
 import android.widget.TimePicker;
+
+import com.copilot.copilot.listitems.RiderListViewAdapterOld;
 
 /**
  * Created by xiaozhuoyu on 2017-05-21.
  */
 public class PoolSearchStartingTimePicker extends PoolSearchTimePicker {
-    public PoolSearchStartingTimePicker(Context context, int editTextViewID, RiderListViewAdapter adapter) {
+    public PoolSearchStartingTimePicker(Context context, int editTextViewID, RiderListViewAdapterOld adapter) {
         super(context, editTextViewID, adapter);
     }
 

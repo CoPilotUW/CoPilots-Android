@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.copilot.copilot.tripsearch.PoolActivity;
+
 public class BookingActivity extends AppCompatActivity {
     private Calendar calendar;
     private EditText dateFieldText;

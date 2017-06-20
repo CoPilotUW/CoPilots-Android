@@ -1,4 +1,4 @@
-package com.copilot.copilot;
+package com.copilot.copilot.tripsearch;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -8,8 +8,9 @@ import android.widget.DatePicker;
 import android.app.DatePickerDialog.*;
 import android.widget.EditText;
 
+import com.copilot.copilot.listitems.RiderListViewAdapterOld;
+
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 
@@ -22,9 +23,9 @@ public class PoolSearchDatePicker implements View.OnClickListener, OnDateSetList
     private int _month;
     private int _birthYear;
     private Context _context;
-    private RiderListViewAdapter _adapter;
+    private RiderListViewAdapterOld _adapter;
 
-    public PoolSearchDatePicker(Context context, int editTextViewID, RiderListViewAdapter adapter)
+    public PoolSearchDatePicker(Context context, int editTextViewID, RiderListViewAdapterOld adapter)
     {
         Activity act = (Activity)context;
         this._editText = (EditText)act.findViewById(editTextViewID);

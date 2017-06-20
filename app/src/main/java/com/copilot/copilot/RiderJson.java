@@ -5,7 +5,7 @@ package com.copilot.copilot;
  */
 public class RiderJson {
 
-    static String[] riderJsons = {
+    public static final String[] riderJsons = {
             "{\"username\": \"adam\", \"userDestination\": \"Toronto\", \"userRating\": \"4.3\", \"userDate\": \"2017-05-06\", \"startingTime\": \"12:30\", \"endingTime\": \"16:45\"}",
             "{\"username\": \"amanda\", \"userDestination\": \"Waterloo\", \"userRating\": \"4.0\", \"userDate\": \"2017-05-07\", \"startingTime\": \"9:30\", \"endingTime\": \"16:45\"}",
             "{\"username\": \"bart\", \"userDestination\": \"Kitchener\", \"userRating\": \"4.5\", \"userDate\": \"2017-05-07\", \"startingTime\": \"15:30\", \"endingTime\": \"17:55\" }",

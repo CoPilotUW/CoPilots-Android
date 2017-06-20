@@ -1,4 +1,4 @@
-package com.copilot.copilot;
+package com.copilot.copilot.listitems;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,13 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.copilot.copilot.R;
+import com.copilot.copilot.listitems.RiderListItem;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class RiderListViewAdapter extends BaseAdapter {
+public class RiderListViewAdapterOld extends BaseAdapter {
 
     // Declare Variables
 
@@ -32,7 +35,7 @@ public class RiderListViewAdapter extends BaseAdapter {
     private float lastRating = 0f;
 
 
-    public RiderListViewAdapter(Context context, List<RiderListItem> riderList, int startingMinute, int startingHour, int endingMinute, int endingHour, Calendar userDate, String destination) {
+    public RiderListViewAdapterOld(Context context, List<RiderListItem> riderList, int startingMinute, int startingHour, int endingMinute, int endingHour, Calendar userDate, String destination) {
         mContext = context;
         this.riderList = riderList;
         lastStartingHour = startingHour;
@@ -47,6 +50,8 @@ public class RiderListViewAdapter extends BaseAdapter {
 
         filter();
     }
+
+    // contains the views that link to this class for data
     public class ViewHolder {
         TextView name;
         TextView destination;
@@ -124,11 +129,6 @@ public class RiderListViewAdapter extends BaseAdapter {
             return true;
         }
         return false;
-    }
-
-    public void filterByLocation(String locationText) {
-        this.lastLocation = locationText;
-        filter();
     }
 
     public void filterByDate(Calendar cal) {
@@ -249,23 +249,6 @@ public class RiderListViewAdapter extends BaseAdapter {
 
     private boolean satisfyRatingFilter(float userRating) {
         return userRating >= this.lastRating;
-    }
-
-    public void filterByRating(float rating) {
-        this.lastRating = rating;
-        filter();
-    }
-
-    public void filterBySeats(int seats) {
-
-    }
-
-    public void filterBySeatsWithNotify() {
-
-    }
-
-    public void filterByCost(float cost) {
-
     }
 
     private boolean checkValidTimeRange(int beginningTimeMinute, int beginningTimeHour, int endingTimeMinute, int endingTimeHour ) {
