@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <EditText
+        android:id="@+id/trip_from"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:hint="From: "
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/trip_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="To: "
+        android:inputType="text"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/trip_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50"
+
+            android:hint="At: "
+            android:inputType="text"
+            android:layout_marginRight="10dp"/>
+
+        <EditText
+            android:id="@+id/trip_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50"
+
+            android:hint="On Date: "
+            android:inputType="text"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search for Rides"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
+
+    <!--
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/grid_item_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:src="@android:drawable/ic_input_add" >
+        </ImageView>
+
+
+        <include layout="@layout/rating_widget" />
+
+    </LinearLayout>
+
+    <EditText
+ android:id="@+id/album_description_view"
+ android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+ android:hint="@string/album_description"
+ android:inputType="textMultiLine" />
+
+    -->
