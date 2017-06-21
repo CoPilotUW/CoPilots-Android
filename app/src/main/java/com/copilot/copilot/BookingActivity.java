@@ -17,15 +17,12 @@ import android.util.Log;
 public class BookingActivity extends AppCompatActivity {
     private Calendar calendar;
     private EditText dateFieldText;
-    private EditText fromTimeField;
-    private EditText toTimeField;
+    private EditText timeField;
     private int year = -1;
     private int month = -1;
     private int day = -1;
-    private int fromHour = -1;
-    private int toHour = -1;
-    private int fromMinute = -1;
-    private int toMinute = -1;
+    private int hour = -1;
+    private int minute = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +38,7 @@ public class BookingActivity extends AppCompatActivity {
         }
 
         dateFieldText = (EditText) findViewById(R.id.dateField);
-        fromTimeField = (EditText) findViewById(R.id.fromTimeField);
-        toTimeField = (EditText) findViewById(R.id.toTimeField);
+        timeField = (EditText) findViewById(R.id.timeField);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
@@ -50,49 +46,26 @@ public class BookingActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         showDate(year, month + 1, day);
 
-        fromTimeField.setOnClickListener(new OnClickListener() {
+        timeField.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                fireFromTimePicker(v, fromTimeField);
-            }
-        });
-
-        toTimeField.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fireToTimePicker(v, toTimeField);
+                fireTimePicker(v, timeField);
             }
         });
     }
 
-    private void fireFromTimePicker(View v, final EditText timeField) {
+    private void fireTimePicker(View v, final EditText timeField) {
         Calendar currentTime = Calendar.getInstance();
-        fromHour = currentTime.get(Calendar.HOUR_OF_DAY);
-        fromMinute = currentTime.get(Calendar.MINUTE);
+        hour = currentTime.get(Calendar.HOUR_OF_DAY);
+        minute = currentTime.get(Calendar.MINUTE);
 
         TimePickerDialog timePicker;
-        timePicker = new TimePickerDialog(BookingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        timePicker = new TimePickerDialog(BookingActivity.this, R.style.DialogPickerTheme, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                timeField.setText(selectedHour + ":" + selectedMinute);
+                timeField.setText(String.format("%02d", selectedHour) + ":" + String.format("%02d", selectedMinute));
             }
-        }, fromHour, fromMinute, true);
-        timePicker.setTitle("Select Time");
-        timePicker.show();
-    }
-
-    private void fireToTimePicker(View v, final EditText timeField) {
-        Calendar currentTime = Calendar.getInstance();
-        toHour = currentTime.get(Calendar.HOUR_OF_DAY);
-        toMinute = currentTime.get(Calendar.MINUTE);
-
-        TimePickerDialog timePicker;
-        timePicker = new TimePickerDialog(BookingActivity.this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                timeField.setText(selectedHour + ":" + selectedMinute);
-            }
-        }, toHour, toMinute, true);
+        }, hour, minute, true);
         timePicker.setTitle("Select Time");
         timePicker.show();
     }
@@ -105,8 +78,7 @@ public class BookingActivity extends AppCompatActivity {
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == 999) {
-            return new DatePickerDialog(this,
-                    myDateListener, year, month, day);
+            return new DatePickerDialog(this, R.style.DialogPickerTheme, myDateListener, year, month, day);
         }
         return null;
     }
@@ -129,11 +101,7 @@ public class BookingActivity extends AppCompatActivity {
         Intent fireGroups = new Intent(this, PoolActivity.class);
         switch(view.getId())
         {
-            case R.id.cancelButton:
-                break;
             case R.id.submitButton:
-                // When firing the pool activity put the user selections into extra.
-                // fireGroups.putExtra("...", "...");
                 if (year != -1) {
                     fireGroups.putExtra("year", year);
                 }
@@ -146,28 +114,16 @@ public class BookingActivity extends AppCompatActivity {
                     fireGroups.putExtra("day", day);
                 }
 
-                if (fromTimeField.getText().length() > 0) {
-                    fireGroups.putExtra("from", fromTimeField.getText());
+                if (timeField.getText().length() > 0) {
+                    fireGroups.putExtra("timeField", timeField.getText());
                 }
 
-                if (toTimeField.getText().length() > 0) {
-                    fireGroups.putExtra("to", toTimeField.getText());
+                if (hour != -1) {
+                    fireGroups.putExtra("hour", hour);
                 }
 
-                if (fromHour != -1) {
-                    fireGroups.putExtra("fromHour", fromHour);
-                }
-
-                if (fromMinute != -1) {
-                    fireGroups.putExtra("fromMinute", fromMinute);
-                }
-
-                if (toHour != -1) {
-                    fireGroups.putExtra("toHour", toHour);
-                }
-
-                if (toMinute != -1) {
-                    fireGroups.putExtra("toMinute", toMinute);
+                if (minute != -1) {
+                    fireGroups.putExtra("fromMinute", minute);
                 }
 
                 startActivity(fireGroups);
