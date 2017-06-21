@@ -102,7 +102,7 @@ public class BookingActivity extends AppCompatActivity {
     public void clickTripBookingFormButton(View view)
     {
         // Intent to fire the pool activity.
-        Intent fireGroups = new Intent(this, PoolActivity.class);
+        Intent fireGroups = new Intent(this, TripDetails.class);
         switch(view.getId())
         {
             case R.id.submitButton:
