@@ -4,18 +4,29 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/riderButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="clickRoleButton"
-        android:text="I am a rider" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="I am a"
+        android:textColor="@color/white"/>
 
-    <Button
-        android:id="@+id/driverButton"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="clickRoleButton"
-        android:text="I am a driver" />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/riderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickRoleButton"
+            android:text="Rider" />
+
+        <Button
+            android:id="@+id/driverButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clickRoleButton"
+            android:text="Driver" />
+    </LinearLayout>
 
 </LinearLayout>
