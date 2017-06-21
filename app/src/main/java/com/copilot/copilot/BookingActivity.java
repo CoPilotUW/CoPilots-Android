@@ -16,6 +16,8 @@ import android.util.Log;
 
 public class BookingActivity extends AppCompatActivity {
     private Calendar calendar;
+    private EditText fromField;
+    private EditText toField;
     private EditText dateFieldText;
     private EditText timeField;
     private int year = -1;
@@ -37,6 +39,8 @@ public class BookingActivity extends AppCompatActivity {
             Log.e("BookingActivity", "Expected intent to contain a valid role extra, but was found not to be.");
         }
 
+        fromField = (EditText) findViewById(R.id.fromField);
+        toField = (EditText) findViewById(R.id.toField);
         dateFieldText = (EditText) findViewById(R.id.dateField);
         timeField = (EditText) findViewById(R.id.timeField);
         calendar = Calendar.getInstance();
@@ -114,8 +118,12 @@ public class BookingActivity extends AppCompatActivity {
                     fireGroups.putExtra("day", day);
                 }
 
-                if (timeField.getText().length() > 0) {
-                    fireGroups.putExtra("timeField", timeField.getText());
+                if (fromField.getText().length() > 0) {
+                    fireGroups.putExtra("from", fromField.getText());
+                }
+
+                if (toField.getText().length() > 0) {
+                    fireGroups.putExtra("to", toField.getText());
                 }
 
                 if (hour != -1) {
@@ -123,7 +131,7 @@ public class BookingActivity extends AppCompatActivity {
                 }
 
                 if (minute != -1) {
-                    fireGroups.putExtra("fromMinute", minute);
+                    fireGroups.putExtra("minute", minute);
                 }
 
                 startActivity(fireGroups);
