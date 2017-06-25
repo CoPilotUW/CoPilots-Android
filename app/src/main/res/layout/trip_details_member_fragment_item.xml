@@ -45,28 +45,32 @@
         android:background="#222F2F">
 
         <ImageButton
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/member_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/cat"
+            android:background="#00000000"/>
 
         <TextView
             android:id="@+id/rank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#ECECEC"
             android:text="TextView" />
 
         <ImageButton
-            android:id="@+id/button5"
+            android:id="@+id/message_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/chat_filled"
             android:background="#00000000"/>
 
         <ImageButton
-            android:id="@+id/button4"
+            android:id="@+id/toggle_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/add"
+            android:src="@drawable/remove_1"
             android:background="#00000000"/>
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,21 +16,16 @@ import android.widget.TextView;
 public class TripDetailMemberListAdapter extends BaseAdapter {
     // Declare Variables
     Context context;
-    String[] rank;
-    String[] country;
-    String[] population;
+    String[] users;
     LayoutInflater inflater;
 
-    public TripDetailMemberListAdapter(Context context, String[] rank, String[] country,
-                           String[] population) {
+    public TripDetailMemberListAdapter(Context context, String[] users) {
         this.context = context;
-        this.rank = rank;
-        this.country = country;
-        this.population = population;
+        this.users = users;
     }
 
     public int getCount() {
-        return rank.length;
+        return users.length;
     }
 
     public Object getItem(int position) {
@@ -52,10 +48,31 @@ public class TripDetailMemberListAdapter extends BaseAdapter {
 
         // Locate the TextViews in listview_item.xml
         txtrank = (TextView) itemView.findViewById(R.id.rank);
-        // Locate the ImageView in listview_item.xml
 
         // Capture position and set to the TextViews
-        txtrank.setText(rank[position]);
+        txtrank.setText(users[position]);
+
+        ImageButton messageButton = (ImageButton) itemView.findViewById(R.id.message_button);
+        ImageButton toggleButton = (ImageButton) itemView.findViewById(R.id.toggle_button);
+        toggleButton.setTag("minus");
+
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Detect which image it currently is.
+                ImageButton toggleButton = (ImageButton) v.findViewById(R.id.toggle_button);
+
+                if (toggleButton != null && toggleButton.getTag() == "minus") {
+                    toggleButton.setImageResource(R.drawable.add);
+                    toggleButton.setTag("plus");
+                } else if (toggleButton != null && toggleButton.getTag() == "plus") {
+                    toggleButton.setImageResource(R.drawable.remove_1);
+                    toggleButton.setTag("minus");
+                }
+            }
+        });
+
 
         return itemView;
     }

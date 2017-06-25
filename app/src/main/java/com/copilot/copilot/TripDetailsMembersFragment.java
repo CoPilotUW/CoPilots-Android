@@ -13,9 +13,8 @@ import android.widget.ListView;
  */
 
 public class TripDetailsMembersFragment extends Fragment {
-    String[] rank;
-    String[] country;
-    String[] population;
+    // Hard coded json for trip member.
+    String[] riderJsons = {"Akash", "Jameson", "Addy", "Jobair", "Surudth"};
     ListView list;
     TripDetailMemberListAdapter adapter;
 
@@ -24,21 +23,12 @@ public class TripDetailsMembersFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.trip_details_member_fragment, container,
                 false);
-        // Generate sample data
-        rank = new String[] { "1", "2", "3", "4", "5" };
-
-        country = new String[] { "China", "India", "United States",
-                "Indonesia", "Brazil" };
-
-        population = new String[] { "1,354,040,000", "1,210,193,422",
-                "315,761,000", "237,641,326", "193,946,886" };
-
 
         // Locate the ListView in fragmenttab1.xml
         list = (ListView) rootView.findViewById(R.id.trip_details_member_fragment_list);
 
         // Pass results to ListViewAdapter Class
-        adapter = new TripDetailMemberListAdapter(getContext(), rank, country, population);
+        adapter = new TripDetailMemberListAdapter(getContext(), riderJsons);
         // Binds the Adapter to the ListView
         list.setAdapter(adapter);
         // Capture clicks on ListView items

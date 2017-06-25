@@ -16,18 +16,24 @@ import java.util.ArrayList;
 
 public class TripDetailsPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    ArrayList<String> bookingDetails;
+    ArrayList<String> bookingDetails = null;
 
     public TripDetailsPagerAdapter(FragmentManager fm, int NumOfTabs, ArrayList<String> detailsFromBooking) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
+        bookingDetails = detailsFromBooking;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                TripDetailsTripFragment tab1 = new TripDetailsTripFragment(bookingDetails);
+                TripDetailsTripFragment tab1 = new TripDetailsTripFragment();
+                Bundle args = new Bundle();
+                args.putString("from", bookingDetails.get(0));
+                args.putString("to", bookingDetails.get(1));
+                args.putString("date", bookingDetails.get(2));
+                tab1.setArguments(args);
                 return tab1;
             case 1:
                 TripDetailsMembersFragment tab2 = new TripDetailsMembersFragment();

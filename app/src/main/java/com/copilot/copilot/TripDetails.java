@@ -26,8 +26,8 @@ public class TripDetails extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Members"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        String from = getIntent().getStringExtra("from");
-        String to = getIntent().getStringExtra("to");
+        String from = getIntent().getStringExtra("from").toString();
+        String to = getIntent().getStringExtra("to").toString();
         int year = getIntent().getIntExtra("year", -1);
         int month = getIntent().getIntExtra("month", -1);
         int day = getIntent().getIntExtra("day", -1);

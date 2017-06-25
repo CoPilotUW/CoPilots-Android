@@ -15,26 +15,23 @@ import java.util.ArrayList;
  */
 
 public class TripDetailsTripFragment extends Fragment{
-    ArrayList<String> bookingDetails = null;
     TextView fromField;
     TextView toField;
     TextView date;
 
-    public TripDetailsTripFragment(ArrayList<String> details) {
-        bookingDetails = details;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.trip_details_trip_frament, container, false);
+
+        // Grab the arguments.
+        Bundle args = getArguments();
         fromField = (TextView) rootView.findViewById(R.id.departure_field_for_trip_details);
-        fromField.setText(bookingDetails.get(0));
+        fromField.setText(args.getString("from", "FROM PLACE"));
         toField = (TextView) rootView.findViewById(R.id.travel_field_for_trip_details);
-        toField.setText(bookingDetails.get(1));
+        toField.setText(args.getString("to", "TO PLACE"));
         date = (TextView) rootView.findViewById(R.id.departing_field_for_trip_details);
-        date.setText(bookingDetails.get(2));
+        date.setText(args.getString("date", "DATE FIELD"));
 
         return rootView;
 
