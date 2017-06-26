@@ -31,7 +31,6 @@
             android:layout_weight=".50"
 
             android:hint="At: "
-            android:inputType="text"
             android:layout_marginRight="10dp"/>
 
         <EditText
@@ -41,7 +40,6 @@
             android:layout_weight=".50"
 
             android:hint="On Date: "
-            android:inputType="text"
             android:layout_marginLeft="10dp"/>
 
     </LinearLayout>

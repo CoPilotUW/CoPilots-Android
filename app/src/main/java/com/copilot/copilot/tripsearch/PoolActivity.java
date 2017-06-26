@@ -12,6 +12,8 @@ import com.copilot.copilot.R;
 import com.copilot.copilot.RiderJson;
 import com.copilot.copilot.listitems.RiderListItem;
 import com.copilot.copilot.listitems.RiderListViewAdapterOld;
+import com.copilot.copilot.listitems.TripListItem;
+import com.copilot.copilot.listitems.TripListViewAdapter;
 
 import org.json.JSONObject;
 
@@ -25,33 +27,40 @@ import java.util.ArrayList;
 
 public class PoolActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
     // Declare Variables
-    EditText datePicker;
-    ListView list;
-    RiderListViewAdapterOld adapter;
-    SearchView editsearch;
-    PoolSearchDatePicker picker;
-    PoolSearchStartingTimePicker startingPicker;
-    PoolSearchEndingTimePicker endingTimePicker;
-    RatingBar ratingBar;
+    EditText pickupPicker;
+    EditText destinationPicker;
 
-    ArrayList<RiderListItem> riderList = new ArrayList<RiderListItem>();
+
+    ListView listView;
+    TripListViewAdapter adapter;
+    SearchView editsearch;
+
+    PoolSearchDatePicker datePicker;
+    PoolSearchStartingTimePicker pickupTimePicker;
+
+    ArrayList<TripListItem> tripList = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pool);
 
-        for (int i = 0; i < RiderJson.riderJsons.length; i++) {
+        // pass results obtained from the previous screen to this one
+
+
+        // locate our views
+
+
+        // get the jsons (mock what we have in API)
+        for (int i = 0; i < RiderJson.tripJSONs.length; i++) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                JSONObject rider = new JSONObject(RiderJson.riderJsons[i]);
-                Log.v("test", Float.toString(BigDecimal.valueOf(rider.getDouble("userRating")).floatValue()));
-                riderList.add(new RiderListItem(
-                    rider.getString("username"),
-                    rider.getString("userDestination"),
-                    BigDecimal.valueOf(rider.getDouble("userRating")).floatValue(),
-                    sdf.parse(rider.getString("userDate")),
-                    rider.getString("startingTime"),
-                    rider.getString("endingTime")
+                JSONObject trip = new JSONObject(RiderJson.riderJsons[i]);
+                tripList.add(new TripListItem(
+                    trip.getString("name"),
+                    trip.getString("pickup"),
+                    trip.getString("destination"),
+                    sdf.parse(trip.getString("tripDate")),
+                    trip.getString("pickupTime")
                 ));
             } catch (Exception e){
                 Log.v("test", e.toString());
@@ -59,6 +68,12 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         }
 
         // get pool_search_wrapper as layout to add to
+        editsearch = (SearchView) findViewById(R.id.pool_search_bar);
+
+        // set the onclick listener
+
+        // I think getIntent() should work from any method
+
         // get pool_search_bar as layout to add onclick listener to add trip_screen_search to
     }
 

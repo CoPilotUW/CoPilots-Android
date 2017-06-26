@@ -3,6 +3,8 @@
     <string name="user_name">Name</string>
     <string name="user_rating">Rating</string>
     <string name="more_info">+ More Info</string>
+    <string name="user_pickup">Pickup</string>
     <string name="user_destination">Destination</string>
     <string name="user_date">Date</string>
+    <string name="user_time">Time</string>
 </resources>
