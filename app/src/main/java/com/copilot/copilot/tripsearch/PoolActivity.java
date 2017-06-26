@@ -1,25 +1,22 @@
 package com.copilot.copilot.tripsearch;
 
-//import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RatingBar;
 
 import com.copilot.copilot.R;
 import com.copilot.copilot.RiderJson;
-import com.copilot.copilot.listitems.RiderListItem;
-import com.copilot.copilot.listitems.RiderListViewAdapterOld;
 import com.copilot.copilot.listitems.TripListItem;
 import com.copilot.copilot.listitems.TripListViewAdapter;
 
 import org.json.JSONObject;
 
 import java.util.Calendar;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -32,10 +29,11 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
     EditText pickupPicker;
     EditText destinationPicker;
 
-
     ListView listView;
     TripListViewAdapter adapter;
     SearchView editsearch;
+
+    LinearLayout searchWidget;
 
     PoolSearchDatePicker datePicker;
     PoolSearchStartingTimePicker pickupTimePicker;
@@ -84,8 +82,19 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         }
 
+        searchWidget = (LinearLayout) findViewById(R.id.trip_search_widget);
+
         // get pool_search_wrapper as layout to add to
         editsearch = (SearchView) findViewById(R.id.pool_search_bar);
+        editsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayout sw = (LinearLayout) findViewById(R.id.trip_search_widget);
+
+                int visibility = sw.getVisibility() == View.GONE ? View.VISIBLE : View.GONE;
+                sw.setVisibility(visibility);
+            }
+        });
 
         adapter = new TripListViewAdapter(this, tripList, pickup, destination, lastDate, tripHour, tripMinute);
         listView.setAdapter(adapter);
