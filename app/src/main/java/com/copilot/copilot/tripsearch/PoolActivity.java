@@ -1,5 +1,6 @@
 package com.copilot.copilot.tripsearch;
 
+//import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.SearchView;
@@ -17,6 +18,7 @@ import com.copilot.copilot.listitems.TripListViewAdapter;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +47,21 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         setContentView(R.layout.activity_pool);
 
         // pass results obtained from the previous screen to this one
+        String pickup = getIntent().hasExtra("from") ? getIntent().getStringExtra("from") : "";
+        String destination = getIntent().hasExtra("to") ? getIntent().getStringExtra("to") : "";
+        int year = getIntent().getIntExtra("year", -1);
+        int month = getIntent().getIntExtra("month", -1);
+        int day = getIntent().getIntExtra("day", -1);
+        int tripHour = getIntent().getIntExtra("hour", -1);
+        int tripMinute = getIntent().getIntExtra("minute", -1);
 
+        Calendar lastDate = null;
+        if (year != -1) {
+            lastDate = Calendar.getInstance();
+            lastDate.set(year, month, day);
+        }
+
+        // so is the intent here to instantiate the sub-search view with those fields as an intent??
 
         // locate our views
 
@@ -54,7 +70,7 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         for (int i = 0; i < RiderJson.tripJSONs.length; i++) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                JSONObject trip = new JSONObject(RiderJson.riderJsons[i]);
+                JSONObject trip = new JSONObject(RiderJson.tripJSONs[i]);
                 tripList.add(new TripListItem(
                     trip.getString("name"),
                     trip.getString("pickup"),
@@ -69,6 +85,10 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
 
         // get pool_search_wrapper as layout to add to
         editsearch = (SearchView) findViewById(R.id.pool_search_bar);
+
+
+        adapter = new TripListViewAdapter(this, tripList, pickup, destination, lastDate, tripHour, tripMinute);
+        listView.setAdapter(adapter);
 
         // set the onclick listener
 
@@ -94,22 +114,8 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
 //        int lastEndingHour = getIntent().getIntExtra("toHour", -1);
 //        int lastEndingMinute = getIntent().getIntExtra("toMinute", -1);
 //        String lastLocation = !getIntent().hasExtra("destination") ? null : getIntent().getStringExtra("destination");
-//        int year = getIntent().getIntExtra("year", -1);
-//        int month = getIntent().getIntExtra("month", -1);
-//        int day = getIntent().getIntExtra("day", -1);
-//
-//
 //
 //        Calendar lastDate = null;
-//        if (year != -1) {
-//            lastDate = Calendar.getInstance();
-//            lastDate.set(year, month, day);
-//        }
-//
-//        adapter = new RiderListViewAdapterOld(this, riderList, lastStartingMinute, lastStartingHour, lastEndingMinute, lastEndingHour, lastDate, lastLocation);
-//
-//        // Binds the Adapter to the ListView
-//        list.setAdapter(adapter);
 //
 //        // Locate the EditText in listview_main.xml
 //        editsearch = (SearchView) findViewById(R.id.search);

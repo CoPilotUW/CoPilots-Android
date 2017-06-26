@@ -121,11 +121,11 @@ public class BookingActivity extends AppCompatActivity {
                 }
 
                 if (fromField.getText().length() > 0) {
-                    fireGroups.putExtra("from", fromField.getText());
+                    fireGroups.putExtra("from", fromField.getText().toString());
                 }
 
                 if (toField.getText().length() > 0) {
-                    fireGroups.putExtra("to", toField.getText());
+                    fireGroups.putExtra("to", toField.getText().toString());
                 }
 
                 if (hour != -1) {

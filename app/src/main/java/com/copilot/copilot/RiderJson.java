@@ -6,7 +6,7 @@ package com.copilot.copilot;
 public class RiderJson {
 
     public static final String[] riderJsons = {
-            "{\"username\": \"Aditya Sridhar\", \"pick\" \"userDestination\": \"Toronto\", \"userDate\": \"2017-05-06\", \"startingTime\": \"12:30\", \"endingTime\": \"16:45\"}",
+            "{\"username\": \"Aditya Sridhar\", \"userDestination\": \"Toronto\", \"userDate\": \"2017-05-06\", \"startingTime\": \"12:30\", \"endingTime\": \"16:45\"}",
             "{\"username\": \"Akash Sant\", \"userDestination\": \"Waterloo\", \"userDate\": \"2017-05-07\", \"startingTime\": \"9:30\", \"endingTime\": \"16:45\"}",
             "{\"username\": \"Jameson Yu\", \"userDestination\": \"Kitchener\", \"userRating\": \"4.5\", \"userDate\": \"2017-05-07\", \"startingTime\": \"15:30\", \"endingTime\": \"17:55\" }",
             "{\"username\": \"Jobair Hassah\", \"userDestination\": \"Guelph\", \"userRating\": \"4.7\", \"userDate\": \"2017-05-09\", \"startingTime\": \"12:30\", \"endingTime\": \"14:45\" }",

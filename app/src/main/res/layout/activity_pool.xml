@@ -118,7 +118,7 @@
 
         <!--</LinearLayout>-->
 
-        <include layout="@layout/trip_screen_search" />
+        <!--<include layout="@layout/trip_screen_search" />-->
 
         <ListView
             android:id="@+id/listview"
