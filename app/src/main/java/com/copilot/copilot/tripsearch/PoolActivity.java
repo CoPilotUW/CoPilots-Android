@@ -63,7 +63,8 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
 
         // so is the intent here to instantiate the sub-search view with those fields as an intent??
 
-        // locate our views
+        // locate our views and initialize them
+        listView = (ListView) findViewById(R.id.trip_list);
 
 
         // get the jsons (mock what we have in API)
@@ -85,7 +86,6 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
 
         // get pool_search_wrapper as layout to add to
         editsearch = (SearchView) findViewById(R.id.pool_search_bar);
-
 
         adapter = new TripListViewAdapter(this, tripList, pickup, destination, lastDate, tripHour, tripMinute);
         listView.setAdapter(adapter);

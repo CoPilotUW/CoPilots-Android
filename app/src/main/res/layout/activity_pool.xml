@@ -121,7 +121,7 @@
         <!--<include layout="@layout/trip_screen_search" />-->
 
         <ListView
-            android:id="@+id/listview"
+            android:id="@+id/trip_list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
 

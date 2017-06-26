@@ -82,7 +82,7 @@ public class TripListViewAdapter extends BaseAdapter {
     public View getView(final int position, View view, ViewGroup parent) {
         final ViewHolder viewHolder;
 
-        if (view == null) {
+        if (view == null || view.getTag() == null) {
             viewHolder = new ViewHolder();
 
             view = inflater.inflate(R.layout.trip_screen_trip, null);
@@ -92,6 +92,8 @@ public class TripListViewAdapter extends BaseAdapter {
             viewHolder.pickupView = (TextView) view.findViewById(R.id.pickup);
             viewHolder.destinationView = (TextView) view.findViewById(R.id.destination);
             viewHolder.dateView = (TextView) view.findViewById(R.id.pickup_time);
+
+            view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
