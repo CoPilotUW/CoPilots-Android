@@ -18,11 +18,14 @@ public class TripListItem {
 
     private int pickupMinute;
 
+    private String pickupTimeStr;
+
     public TripListItem(String driverName, String pickup, String destination, Date tripDate, String tripTime) {
         this.driverName = driverName;
         this.pickup = pickup;
         this.destination = destination;
         this.tripDate = tripDate;
+        this.pickupTimeStr = tripTime;
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         try {
@@ -57,4 +60,9 @@ public class TripListItem {
     public int getPickupMinute() {
         return pickupMinute;
     }
+
+    public String getPickupTimeStr() {
+        return pickupTimeStr;
+    }
+
 }

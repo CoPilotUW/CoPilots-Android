@@ -104,6 +104,7 @@ public class TripListViewAdapter extends BaseAdapter {
         viewHolder.nameView.setText(trip.getDriverName());
         viewHolder.pickupView.setText(trip.getPickup());
         viewHolder.destinationView.setText(trip.getDestination());
+        viewHolder.dateView.setText(trip.getPickupTimeStr());
         return view;
     }
 }

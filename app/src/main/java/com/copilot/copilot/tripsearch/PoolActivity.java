@@ -83,6 +83,10 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         }
 
         searchWidget = (LinearLayout) findViewById(R.id.trip_search_widget);
+        searchWidget.clearFocus();
+        searchWidget.setVisibility(View.GONE);
+
+        // TODO: pretty sure I should not be setting stuff here as per best practices >_>
 
         // get pool_search_wrapper as layout to add to
         editsearch = (SearchView) findViewById(R.id.pool_search_bar);
@@ -99,11 +103,8 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         adapter = new TripListViewAdapter(this, tripList, pickup, destination, lastDate, tripHour, tripMinute);
         listView.setAdapter(adapter);
 
-        // set the onclick listener
 
-        // I think getIntent() should work from any method
 
-        // get pool_search_bar as layout to add onclick listener to add trip_screen_search to
     }
 
 
