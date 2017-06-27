@@ -64,11 +64,7 @@ public class TripDetailMemberListAdapter extends BaseAdapter {
                 ImageButton toggleButton = (ImageButton) v.findViewById(R.id.toggle_button);
 
                 if (toggleButton != null && toggleButton.getTag() == "minus") {
-                    toggleButton.setImageResource(R.drawable.add);
-                    toggleButton.setTag("plus");
-                } else if (toggleButton != null && toggleButton.getTag() == "plus") {
-                    toggleButton.setImageResource(R.drawable.remove_1);
-                    toggleButton.setTag("minus");
+                    toggleButton.setImageResource(R.drawable.remove_2);
                 }
             }
         });

@@ -5,66 +5,78 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#222F2F"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/departure_tag"/>
+                android:text="@string/departure_tag"
+                android:textColor="#ffffff"
+                android:layout_marginTop="20dp"
+                android:textSize="6pt"/>
 
             <TextView
                 android:id="@+id/departure_field_for_trip_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Fairview Mall, Toronto" />
+                android:text="Fairview Mall, Toronto"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:textSize="8pt"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/travel_tag" />
+                android:text="@string/travel_tag"
+                android:textColor="#ffffff"
+                android:layout_marginTop="20dp"
+                android:textSize="6pt"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="University of Waterloo"
-                android:id="@+id/travel_field_for_trip_details"/>
+                android:id="@+id/travel_field_for_trip_details"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:textSize="8pt"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/departing_tag" />
+                android:text="@string/departing_tag"
+                android:textColor="#ffffff"
+                android:layout_marginTop="20dp"
+                android:textSize="6pt"/>
 
             <TextView
                 android:id="@+id/departing_field_for_trip_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="4:00pm June 15th" />
+                android:text="4:00pm June 15th"
+                android:textColor="#ffffff"
+                android:layout_marginTop="5dp"
+                android:textSize="8pt"/>
         </LinearLayout>
 
     </LinearLayout>
