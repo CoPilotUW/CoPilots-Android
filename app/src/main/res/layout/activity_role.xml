@@ -11,15 +11,26 @@
         android:gravity="center"
         android:paddingTop="100dp"
         android:paddingBottom="50dp"
-        android:textSize="40dp"
-        android:text="I am a"
-        android:textColor="@color/white"/>
+        android:textSize="35dp"
+        android:text="Welcome to CoPilot"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/driverButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:onClick="clickRoleButton"
+            android:textSize="15dp"
+            android:background="@color/editTextColor"
+            android:textColor="@color/white"
+            android:text="Offer a ride"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/riderButton"
@@ -28,19 +39,10 @@
             android:onClick="clickRoleButton"
             android:background="@color/editTextColor"
             android:textColor="@color/white"
-            android:textSize="30dp"
-            android:text="Rider" />
-
-        <Button
-            android:id="@+id/driverButton"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:onClick="clickRoleButton"
-            android:textSize="30dp"
-            android:layout_marginTop="20dp"
-            android:background="@color/editTextColor"
-            android:textColor="@color/white"
-            android:text="Driver" />
+            android:textSize="15dp"
+            android:text="Find a ride"
+            android:layout_marginLeft="30dp"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
 </LinearLayout>
