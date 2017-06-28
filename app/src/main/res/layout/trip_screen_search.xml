@@ -11,14 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:textColor="@color/white"
         android:hint="From: "
+        android:backgroundTint="@color/editTextColor"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/trip_to"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:hint="To: "
+        android:backgroundTint="@color/editTextColor"
         android:inputType="text"
         android:layout_marginBottom="20dp"/>
 
@@ -31,8 +35,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".50"
-
+            android:textColor="@color/white"
             android:hint="At: "
+            android:backgroundTint="@color/editTextColor"
             android:layout_marginRight="10dp"/>
 
         <EditText
@@ -40,8 +45,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".50"
-
+            android:textColor="@color/white"
             android:hint="On Date: "
+            android:backgroundTint="@color/editTextColor"
             android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
@@ -51,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Search for Rides"
+        android:background="@color/editTextColor"
         android:layout_marginTop="20dp"/>
 
 </LinearLayout>

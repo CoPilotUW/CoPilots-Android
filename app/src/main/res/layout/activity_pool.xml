@@ -17,9 +17,9 @@
             android:id="@+id/pool_search_bar"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false">
+            android:iconifiedByDefault="false"
+            android:col="@color/editTextColor">
 
-            <requestFocus />
         </SearchView>
 
         <include layout="@layout/trip_screen_search" />

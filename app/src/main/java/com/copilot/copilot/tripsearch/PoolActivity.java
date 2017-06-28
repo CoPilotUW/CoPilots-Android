@@ -8,6 +8,7 @@ import android.widget.SearchView;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.copilot.copilot.R;
 import com.copilot.copilot.RiderJson;
@@ -87,6 +88,20 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         searchWidget.setVisibility(View.GONE);
 
         // TODO: pretty sure I should not be setting stuff here as per best practices >_>
+        TextView pickupSearchView = (TextView) searchWidget.findViewById(R.id.trip_from);
+        pickupSearchView.setText(pickup);
+
+        TextView destinationSearchView = (TextView) searchWidget.findViewById(R.id.trip_to);
+        destinationSearchView.setText(destination);
+
+        TextView tripTimeSearchView = (TextView) searchWidget.findViewById(R.id.trip_time);
+        tripTimeSearchView.setText(tripHour + ":" + tripMinute);
+
+        TextView tripDateSearchView = (TextView) searchWidget.findViewById(R.id.trip_date);
+
+        // apparently this cannot format strings... ugh (for now)
+        //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        tripDateSearchView.setText("");
 
         // get pool_search_wrapper as layout to add to
         editsearch = (SearchView) findViewById(R.id.pool_search_bar);
