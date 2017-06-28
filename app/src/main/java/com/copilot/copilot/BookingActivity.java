@@ -27,6 +27,7 @@ public class BookingActivity extends AppCompatActivity {
     private int day = -1;
     private int hour = -1;
     private int minute = -1;
+    private boolean isDriver = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class BookingActivity extends AppCompatActivity {
             setContentView(R.layout.activity_rider_booking);
         } else if (getIntent().hasExtra("Role") && getIntent().getStringExtra("Role").equals("Driver")) {
             setContentView(R.layout.activity_driver_booking);
+            isDriver = true;
         } else {
             setContentView(R.layout.activity_rider_booking);
             Log.e("BookingActivity", "Expected intent to contain a valid role extra, but was found not to be.");
@@ -105,6 +107,11 @@ public class BookingActivity extends AppCompatActivity {
     {
         // Intent to fire the pool activity.
         Intent fireGroups = new Intent(this, PoolActivity.class);
+
+        if (isDriver) {
+            fireGroups = new Intent(this, TripDetails.class);
+        }
+        
         switch(view.getId())
         {
             case R.id.submitButton:

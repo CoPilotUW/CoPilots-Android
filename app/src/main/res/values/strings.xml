@@ -7,4 +7,8 @@
     <string name="user_destination">Destination</string>
     <string name="user_date">Date</string>
     <string name="user_time">Time</string>
+    <string name="departure_tag">Departing From</string>
+    <string name="travel_tag">Travelling To</string>
+    <string name="departing_tag">Departing At</string>
+    <string name="estimate_arrival">Estimated Arrival</string>
 </resources>
