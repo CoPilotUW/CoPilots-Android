@@ -1,12 +1,22 @@
 package com.copilot.copilot;
 
+import android.hardware.camera2.params.Face;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
+import android.widget.Toast;
 
+import com.copilot.copilot.auth.FacebookAuthActivity;
 import com.copilot.helper.VolleyCallback;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 public class RoleActivity extends AppCompatActivity {
 
@@ -14,6 +24,19 @@ public class RoleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_role);
+
+        final LoginButton logoutButton = (LoginButton) findViewById(R.id.logout_button);
+        AccessTokenTracker tracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                if ( currentAccessToken == null ) {
+                    Toast.makeText(RoleActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
+                    Intent goToLogin = new Intent(RoleActivity.this, FacebookAuthActivity.class);
+                    startActivity(goToLogin);
+                    finish();
+                }
+            }
+        };
     }
 
     public void clickRoleButton(View view)
