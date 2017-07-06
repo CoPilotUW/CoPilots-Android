@@ -17,6 +17,7 @@ import com.copilot.copilot.RoleActivity;
 import com.copilot.copilot.SplashActivity;
 import com.copilot.helper.HTTPRequestWrapper;
 import com.copilot.helper.VolleyCallback;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -45,27 +46,38 @@ public class FacebookAuthActivity extends AppCompatActivity {
 
         request = new HTTPRequestWrapper(GlobalConstants.GLOBAL_URL, FacebookAuthActivity.this);
 
+        final VolleyCallback successCallback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String response) {
+                Intent startApp = new Intent(FacebookAuthActivity.this, RoleActivity.class);
+                startActivity(startApp);
+                finish();
+            }
+        };
+
+        final VolleyCallback failure = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String response) {
+                Toast.makeText(getApplicationContext(), "Login Failed: " + response, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        AccessToken fbAt = AccessToken.getCurrentAccessToken();
+
+        if (fbAt != null) {
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("access_token", fbAt.getToken());
+
+            request.makeGetRequest(GlobalConstants.AUTH_ENDPOINT, params, successCallback, failure, null);
+        }
+
         final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // Login to the app
                 String accessToken = loginResult.getAccessToken().getToken();
-                final VolleyCallback successCallback = new VolleyCallback() {
-                    @Override
-                    public void onSuccessResponse(String response) {
-                    Intent startApp = new Intent(FacebookAuthActivity.this, RoleActivity.class);
-                    startActivity(startApp);
-                    finish();
-                    }
-                };
 
-                final VolleyCallback failure = new VolleyCallback() {
-                    @Override
-                    public void onSuccessResponse(String response) {
-                        Toast.makeText(getApplicationContext(), "Login Failed: " + response, Toast.LENGTH_SHORT).show();
-                    }
-                };
 
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("access_token", loginResult.getAccessToken().getToken());
