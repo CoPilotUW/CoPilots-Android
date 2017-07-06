@@ -7,6 +7,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,8 +41,17 @@ public class HTTPRequestWrapper {
      * This method is used to make a get requests
      * @param endpoint     request endpoint
      */
-    public static void makeGetRequest (final String endpoint, final VolleyCallback success, final VolleyCallback failure) {
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, baseURL + endpoint,
+    public static void makeGetRequest (final String endpoint, final Map<String, String> PARAMS, final VolleyCallback success, final VolleyCallback failure,
+                                       final Map<String, String> HEADERS) {
+        String uri = baseURL + endpoint;
+        if (PARAMS != null && PARAMS.size() > 0)
+            uri += "?";
+        for (Map.Entry<String, String> param : PARAMS.entrySet()) {
+            uri += param.getKey() + "=" + param.getValue();
+            uri += "&";
+        }
+        uri = uri.substring(0, uri.lastIndexOf("&"));
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, uri,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -52,10 +62,20 @@ public class HTTPRequestWrapper {
             public void onErrorResponse(VolleyError error) {
                 Toast errToast = Toast.makeText(context, "GET request to " + baseURL +
                         endpoint + " failed.", Toast.LENGTH_SHORT);
-                //errToast.show();
+                errToast.show();
                 failure.onSuccessResponse(error.toString());
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> allHeaders = new HashMap<>();
+                allHeaders.putAll(super.getHeaders());
+                if (HEADERS != null) {
+                    allHeaders.putAll(HEADERS);
+                }
+                return allHeaders;
+            }
+        };
         queue.add(stringRequest);
     }
 
@@ -67,7 +87,8 @@ public class HTTPRequestWrapper {
      * @param failure    failure callback
      */
     public static void makePostRequest (final String endpoint, final HashMap<String, String> PARAMS,
-                                        final VolleyCallback success, final VolleyCallback failure) {
+                                        final VolleyCallback success, final VolleyCallback failure,
+                                        final HashMap<String, String> HEADERS) {
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, baseURL + endpoint,
                 new Response.Listener<String>() {
                     @Override
@@ -83,6 +104,16 @@ public class HTTPRequestWrapper {
             @Override
             protected Map<String, String> getParams () {
                 return PARAMS;
+            }
+
+            @Override
+            public  Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> allHeaders = new HashMap<>();
+                allHeaders.putAll(super.getHeaders());
+                if (HEADERS != null) {
+                    allHeaders.putAll(HEADERS);
+                }
+                return allHeaders;
             }
         };
         queue.add(jsonRequest);

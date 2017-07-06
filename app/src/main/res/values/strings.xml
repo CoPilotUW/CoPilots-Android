@@ -11,4 +11,7 @@
     <string name="travel_tag">Travelling To</string>
     <string name="departing_tag">Departing At</string>
     <string name="estimate_arrival">Estimated Arrival</string>
+    <string name="facebook_app_id">1820782894602314</string>
+    <string name="fb_login_protocol_scheme">fb1820782894602314</string>
+
 </resources>
