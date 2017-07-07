@@ -1,6 +1,8 @@
 package com.copilot.copilot.auth;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -48,7 +50,13 @@ public class FacebookAuthActivity extends AppCompatActivity {
 
         final VolleyCallback successCallback = new VolleyCallback() {
             @Override
-            public void onSuccessResponse(String response) {
+            public void onSuccessResponse(String token) {
+                // Save the JWT token to session
+                SharedPreferences sharedPref = getSharedPreferences(GlobalConstants.APP_SESSION, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("x-access-token", token);
+                editor.commit();
+
                 Intent startApp = new Intent(FacebookAuthActivity.this, RoleActivity.class);
                 startActivity(startApp);
                 finish();
