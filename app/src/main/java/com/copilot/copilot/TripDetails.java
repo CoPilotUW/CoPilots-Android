@@ -3,14 +3,13 @@ package com.copilot.copilot;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+
+import com.copilot.helper.CPUtility;
 
 /**
  * Created by xiaozhuoyu on 2017-06-20.
@@ -38,7 +37,7 @@ public class TripDetails extends AppCompatActivity {
         cal.set(year, month, day);
 
         SimpleDateFormat format1 = new SimpleDateFormat("EEE, MMM d, ''yy");
-        String formatted = format1.format(cal.getTime());
+        String formatted = CPUtility.formatDate(year, month, day);
 
         ArrayList<String> bookingDetails = new ArrayList<String>();
         bookingDetails.add(from);

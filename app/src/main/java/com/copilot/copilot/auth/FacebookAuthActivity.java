@@ -52,9 +52,9 @@ public class FacebookAuthActivity extends AppCompatActivity {
             @Override
             public void onSuccessResponse(String token) {
                 // Save the JWT token to session
-                SharedPreferences sharedPref = getSharedPreferences(GlobalConstants.APP_SESSION, Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("x-access-token", token);
+                editor.putString(GlobalConstants.ACCESS_TOKEN, token);
                 editor.commit();
 
                 Intent startApp = new Intent(FacebookAuthActivity.this, RoleActivity.class);
