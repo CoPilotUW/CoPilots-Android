@@ -29,6 +29,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,6 +81,7 @@ public class FacebookAuthActivity extends AppCompatActivity {
         }
 
         final LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setReadPermissions(Arrays.asList(GlobalConstants.FB_PERMISSIONS));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

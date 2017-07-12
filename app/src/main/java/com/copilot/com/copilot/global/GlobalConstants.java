@@ -8,6 +8,7 @@ public class GlobalConstants {
     public static final String GLOBAL_URL = "http://copilot-services.herokuapp.com/";
     public static final String AUTH_ENDPOINT = "auth/facebook/token";
     public static final String RIDER_TRIP_ENDPOINT = "trip/book";
-    public static final String V1_FEATURES = "copilots/v1/";
     public static final String ACCESS_TOKEN = "x-access-token";
+    public static final String V1_FEATURES = "copilots/v1";
+    public static final String FB_PERMISSIONS = "email";
 }
