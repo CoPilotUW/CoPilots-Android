@@ -86,9 +86,9 @@ public class HTTPRequestWrapper {
      * @param success    success callback
      * @param failure    failure callback
      */
-    public static void makePostRequest (final String endpoint, final HashMap<String, String> PARAMS,
+    public static void makePostRequest (final String endpoint, final Map<String, String> PARAMS,
                                         final VolleyCallback success, final VolleyCallback failure,
-                                        final HashMap<String, String> HEADERS) {
+                                        final Map<String, String> HEADERS) {
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, baseURL + endpoint,
                 new Response.Listener<String>() {
                     @Override

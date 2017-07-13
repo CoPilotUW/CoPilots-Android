@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
@@ -36,6 +37,8 @@ public class BookingActivity extends AppCompatActivity {
     private EditText toField;
     private EditText dateFieldText;
     private EditText timeField;
+    private EditText carModelField;
+    private EditText carNumber;
     private int year = -1;
     private int month = -1;
     private int day = -1;
@@ -96,6 +99,11 @@ public class BookingActivity extends AppCompatActivity {
         request = new HTTPRequestWrapper(GlobalConstants.GLOBAL_URL + GlobalConstants.V1_FEATURES, BookingActivity.this);
 
         nextIntent = new Intent(this, PoolActivity.class);
+
+        if (isDriver) {
+            carModelField = (EditText) findViewById(R.id.carModelField);
+            carNumber = (EditText) findViewById(R.id.carNumber);
+        }
 
     }
 
@@ -181,19 +189,29 @@ public class BookingActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 Map<String, String> headers = new HashMap<String, String>();
 
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                headers.put("x-access-token", sharedPref.getString(GlobalConstants.ACCESS_TOKEN, ""));
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String accessToken = sharedPref.getString(GlobalConstants.ACCESS_TOKEN, "");
+
+                headers.put("x-access-token", accessToken);
+
+                params.put("source", fromField.getText().toString());
+                params.put("destination", toField.getText().toString());
 
                 if (isDriver) {
+                    // Drivers has additional fields to fill in.
+                    params.put("car_make", carNumber.getText().toString());
+                    params.put("car_model", carModelField.getText().toString());
+                    params.put("from_date", CPUtility.getDateStringForPost(year, month, day, hour, minute));
+                    params.put("to_date", CPUtility.getDateStringForPost(year, month, day, hour, minute));
+                    params.put("drive_to_address", toField.getText().toString());
+                    request.makePostRequest(GlobalConstants.CREATE_TRIP_GROUP, params, successCallback, failure, headers);
+
 
                 } else {
-                    params.put("source", fromField.getText().toString());
-                    params.put("destination", toField.getText().toString());
                     params.put("date", CPUtility.getDateStringForPost(year, month, day, hour, minute));
                     params.put("time", Integer.toString(hour) + ":" + Integer.toString(minute));
+                    request.makePostRequest(GlobalConstants.CREATE_TRIP_SEARCH, params, successCallback, failure, headers);
                 }
-
-                request.makeGetRequest(GlobalConstants.RIDER_TRIP_ENDPOINT, params, successCallback, failure, headers);
 
                 break;
             default:

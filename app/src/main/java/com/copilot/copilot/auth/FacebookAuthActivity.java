@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
@@ -53,10 +54,13 @@ public class FacebookAuthActivity extends AppCompatActivity {
             @Override
             public void onSuccessResponse(String token) {
                 // Save the JWT token to session
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(GlobalConstants.ACCESS_TOKEN, token);
                 editor.commit();
+
+                String accessToken = sharedPref.getString(GlobalConstants.ACCESS_TOKEN, "");
+                Log.e("afasdfsadfas", "this is the access token in the call back: " + accessToken);
 
                 Intent startApp = new Intent(FacebookAuthActivity.this, RoleActivity.class);
                 startActivity(startApp);
