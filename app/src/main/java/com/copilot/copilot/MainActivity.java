@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set a toolbar to replace the action bar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Log.d("crud", toolbar.toString());
         setSupportActionBar(toolbar);
         /*
          * TODO: THIS IS HOW A REQUEST CAN BE MADE USING THE VOLLEY LIBRARY
@@ -51,5 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         requestWrapper.makePostRequest(GlobalConstants.AUTH_ENDPOINT, params, successCallback, failureCallback);
         */
+
     }
 }

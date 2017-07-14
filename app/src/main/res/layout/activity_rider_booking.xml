@@ -2,81 +2,117 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkBackground"
-    android:padding="15dp">
+    android:background="@color/darkBackground">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:textSize="40dp"
-        android:text="Book a ride"/>
-
-    <EditText
-        android:id="@+id/fromField"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:hint="From: "
-        android:inputType="text"
-        android:backgroundTint="@color/editTextColor"
-        android:textColor="@color/white"
-        android:textCursorDrawable="@color/editTextColor"/>
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <EditText
-        android:id="@+id/toField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="To: "
-        android:inputType="text"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/editTextColor"
-        android:textColor="@color/white"
-        android:textCursorDrawable="@color/editTextColor"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="CoPilot"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="40dp"
+            android:text="Book a ride"/>
 
         <EditText
-            android:id="@+id/timeField"
-            android:layout_width="0dp"
+            android:id="@+id/fromField"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".50"
-
-            android:hint="At: "
+            android:layout_marginBottom="20dp"
+            android:hint="From: "
             android:inputType="text"
-            android:layout_marginRight="10dp"
             android:backgroundTint="@color/editTextColor"
             android:textColor="@color/white"
             android:textCursorDrawable="@color/editTextColor"/>
 
         <EditText
-            android:id="@+id/dateField"
-            android:layout_width="0dp"
+            android:id="@+id/toField"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".50"
-
-            android:hint="On Date: "
+            android:hint="To: "
             android:inputType="text"
-            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/editTextColor"
             android:textColor="@color/white"
             android:textCursorDrawable="@color/editTextColor"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/timeField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+
+                android:hint="At: "
+                android:inputType="text"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/editTextColor"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/editTextColor"/>
+
+            <EditText
+                android:id="@+id/dateField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+
+                android:hint="On Date: "
+                android:inputType="text"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/editTextColor"
+                android:textColor="@color/white"
+                android:textCursorDrawable="@color/editTextColor"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submitButton"
+            android:onClick="clickTripBookingFormButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:background="@color/editTextColor"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/submitButton"
-        android:onClick="clickTripBookingFormButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:background="@color/editTextColor"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/white"/>
 
 </LinearLayout>
 
