@@ -17,6 +17,13 @@ android:theme="@style/AppTheme.AppBarOverlay">
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/copilot_menu_white"
+            android:layout_alignParentLeft="true"
+            android:background="@null"/>
+
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
@@ -26,6 +33,14 @@ android:theme="@style/AppTheme.AppBarOverlay">
             android:text="CoPilot"
             android:textColor="#fff"
             android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/msg"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:layout_marginRight="10dp"/>
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
