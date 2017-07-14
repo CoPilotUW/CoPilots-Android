@@ -1,7 +1,13 @@
 package com.copilot.copilot;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.android.volley.toolbox.Volley;
 import com.copilot.com.copilot.global.GlobalConstants;
@@ -15,8 +21,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
+        // Set a toolbar to replace the action bar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         /*
          * TODO: THIS IS HOW A REQUEST CAN BE MADE USING THE VOLLEY LIBRARY
          *
