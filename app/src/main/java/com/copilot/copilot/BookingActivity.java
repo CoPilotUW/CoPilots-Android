@@ -77,10 +77,6 @@ public class BookingActivity extends AppCompatActivity {
             Log.e("BookingActivity", "Expected intent to contain a valid role extra, but was found not to be.");
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        Log.d("crud", toolbar.toString());
-        setSupportActionBar(toolbar);
-
         fromField = (EditText) findViewById(R.id.fromField);
         toField = (EditText) findViewById(R.id.toField);
         dateFieldText = (EditText) findViewById(R.id.dateField);
