@@ -13,5 +13,6 @@
     <string name="estimate_arrival">Estimated Arrival</string>
     <string name="facebook_app_id">1820782894602314</string>
     <string name="fb_login_protocol_scheme">fb1820782894602314</string>
+    <string name="rider_pool_go_back_button_text">&lt; Back to Trip</string>
 
 </resources>

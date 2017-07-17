@@ -3,12 +3,15 @@ package com.copilot.copilot;
 import android.hardware.camera2.params.Face;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.copilot.copilot.auth.FacebookAuthActivity;
+import com.copilot.copilot.invitationlist.InvitationList;
 import com.copilot.helper.VolleyCallback;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -24,6 +27,16 @@ public class RoleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_role);
+
+        View toolbarView = findViewById(R.id.toolbar);
+        ImageButton messageButton = (ImageButton)toolbarView.findViewById(R.id.toolbar_message_button);
+        messageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getApplicationContext(), InvitationList.class);
+                startActivity(i);
+            }
+        });
 
         final LoginButton logoutButton = (LoginButton) findViewById(R.id.logout_button);
         AccessTokenTracker tracker = new AccessTokenTracker() {

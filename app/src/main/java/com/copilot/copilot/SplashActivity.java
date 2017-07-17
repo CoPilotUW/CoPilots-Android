@@ -6,9 +6,12 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.copilot.com.copilot.global.GlobalConstants;
 import com.copilot.copilot.auth.FacebookAuthActivity;
+import com.copilot.copilot.invitationlist.InvitationList;
 import com.copilot.helper.HTTPRequestWrapper;
 import com.copilot.helper.VolleyCallback;
 
@@ -21,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        View toolbarView = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) toolbarView;
         setSupportActionBar(toolbar);
 
         new Handler().postDelayed(new Runnable() {
