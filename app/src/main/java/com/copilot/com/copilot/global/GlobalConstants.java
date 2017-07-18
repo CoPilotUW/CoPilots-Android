@@ -12,4 +12,5 @@ public class GlobalConstants {
     public static final String ACCESS_TOKEN = "x-access-token";
     public static final String V1_FEATURES = "copilot/v1";
     public static final String FB_PERMISSIONS = "email";
+    public static final String USER_ID = "user_id";
 }

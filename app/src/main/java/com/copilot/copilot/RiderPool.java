@@ -21,6 +21,8 @@ public class RiderPool extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rider_pool);
+
+
         list = (ListView) findViewById(R.id.rider_pool_list);
 
         backButton = (Button)findViewById(R.id.rider_pool_back_button);

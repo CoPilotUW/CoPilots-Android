@@ -30,6 +30,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,11 +55,29 @@ public class FacebookAuthActivity extends AppCompatActivity {
 
         final VolleyCallback successCallback = new VolleyCallback() {
             @Override
-            public void onSuccessResponse(String token) {
-                // Save the JWT token to session
+            public void onSuccessResponse(String response) {
+                // Convert the json response;
+                JSONObject jsonResponse = null;
+                try {
+                    jsonResponse = new JSONObject(response);
+                } catch (JSONException e) {
+
+                }
+                String id = "";
+                String token = "";
+
+                try {
+                    id = jsonResponse.getString("cpuserid");
+                    token = jsonResponse.getString("token");
+                } catch (JSONException e) {
+
+                }
+
+                // Save the JWT token and the id.
                 SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(GlobalConstants.ACCESS_TOKEN, token);
+                editor.putString(GlobalConstants.USER_ID, id);
                 editor.commit();
 
                 String accessToken = sharedPref.getString(GlobalConstants.ACCESS_TOKEN, "");

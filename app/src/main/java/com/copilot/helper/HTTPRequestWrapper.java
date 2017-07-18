@@ -5,6 +5,7 @@ package com.copilot.helper;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
