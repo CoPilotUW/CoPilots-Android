@@ -8,6 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.copilot.helper.CPUtility;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 /**
  * Created by xiaozhuoyu on 2017-07-14.
  */
@@ -15,16 +22,16 @@ import android.widget.TextView;
 public class RiderPoolListAdapter extends BaseAdapter {
     // Declare Variables
     Context context;
-    String[] users;
+    JSONArray tripSearches;
     LayoutInflater inflater;
 
-    public RiderPoolListAdapter(Context context, String[] users) {
+    public RiderPoolListAdapter(Context context, JSONArray tripSearches) {
         this.context = context;
-        this.users = users;
+        this.tripSearches = tripSearches;
     }
 
     public int getCount() {
-        return users.length;
+        return tripSearches.length();
     }
 
     public Object getItem(int position) {
@@ -37,7 +44,9 @@ public class RiderPoolListAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         // Declare Variables
-        TextView txtrank;
+        TextView name;
+        TextView destination;
+        TextView time;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -45,10 +54,21 @@ public class RiderPoolListAdapter extends BaseAdapter {
         View itemView = inflater.inflate(R.layout.activity_rider_pool_list_item, parent, false);
 
         // Locate the TextViews in listview_item.xml
-        txtrank = (TextView) itemView.findViewById(R.id.rank);
+        name = (TextView) itemView.findViewById(R.id.name);
+        destination = (TextView) itemView.findViewById(R.id.destination);
+        time = (TextView) itemView.findViewById(R.id.time);
 
-        // Capture position and set to the TextViews
-        txtrank.setText(users[position]);
+        JSONObject obj;
+        JSONObject userObject;
+        try {
+            obj = tripSearches.getJSONObject(position);
+            userObject = obj.getJSONObject("CPUser");
+            name.setText(userObject.getString("first_name") + " " + userObject.getString("last_name"));
+            destination.setText(obj.getString("destination"));
+            time.setText(CPUtility.getDateTimeString(obj.getString("date"), obj.getString("time")));
+        } catch (JSONException e) {
+
+        }
 
         ImageButton messageButton = (ImageButton) itemView.findViewById(R.id.message_button);
 

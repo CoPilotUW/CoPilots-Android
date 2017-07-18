@@ -13,4 +13,5 @@ public class GlobalConstants {
     public static final String V1_FEATURES = "copilot/v1";
     public static final String FB_PERMISSIONS = "email";
     public static final String USER_ID = "user_id";
+    public static final String GET_TRIP_SEARCHES = "/driver/requests";
 }

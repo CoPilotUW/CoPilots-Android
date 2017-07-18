@@ -22,15 +22,43 @@
             android:background="#00000000"
             android:layout_marginLeft="20dp"/>
 
-        <TextView
-            android:id="@+id/rank"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ECECEC"
-            android:text="TextView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
-            android:textSize="8pt"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textColor="#ECECEC"
+                android:text="TextView"
+                android:layout_marginLeft="20dp"
+                android:textSize="6pt"/>
+
+            <TextView
+                android:id="@+id/destination"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textColor="#ECECEC"
+                android:text="TextView"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="6pt"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textColor="#ECECEC"
+                android:text="TextView"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="6pt"/>
+
+        </LinearLayout>
+
+
 
         <ImageButton
             android:id="@+id/message_button"
@@ -38,8 +66,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/chat_filled"
             android:background="#00000000"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginLeft="40dp" />
     </LinearLayout>
 
 </RelativeLayout>

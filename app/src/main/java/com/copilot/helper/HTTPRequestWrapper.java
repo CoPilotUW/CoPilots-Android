@@ -45,13 +45,15 @@ public class HTTPRequestWrapper {
     public static void makeGetRequest (final String endpoint, final Map<String, String> PARAMS, final VolleyCallback success, final VolleyCallback failure,
                                        final Map<String, String> HEADERS) {
         String uri = baseURL + endpoint;
-        if (PARAMS != null && PARAMS.size() > 0)
+        if (PARAMS != null && PARAMS.size() > 0) {
             uri += "?";
-        for (Map.Entry<String, String> param : PARAMS.entrySet()) {
-            uri += param.getKey() + "=" + param.getValue();
-            uri += "&";
+            for (Map.Entry<String, String> param : PARAMS.entrySet()) {
+                uri += param.getKey() + "=" + param.getValue();
+                uri += "&";
+            }
+            uri = uri.substring(0, uri.lastIndexOf("&"));
         }
-        uri = uri.substring(0, uri.lastIndexOf("&"));
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, uri,
                 new Response.Listener<String>() {
                     @Override
