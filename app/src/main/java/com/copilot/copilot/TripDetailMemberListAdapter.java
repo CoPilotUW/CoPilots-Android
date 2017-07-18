@@ -9,6 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 /**
  * Created by xiaozhuoyu on 2017-06-20.
  */
@@ -16,16 +19,18 @@ import android.widget.TextView;
 public class TripDetailMemberListAdapter extends BaseAdapter {
     // Declare Variables
     Context context;
-    String[] users;
+    JSONArray users;
     LayoutInflater inflater;
+    String groupId;
 
-    public TripDetailMemberListAdapter(Context context, String[] users) {
+    public TripDetailMemberListAdapter(Context context, JSONArray users, String groupId) {
         this.context = context;
         this.users = users;
+        this.groupId = groupId;
     }
 
     public int getCount() {
-        return users.length;
+        return users.length();
     }
 
     public Object getItem(int position) {
@@ -50,7 +55,12 @@ public class TripDetailMemberListAdapter extends BaseAdapter {
         txtrank = (TextView) itemView.findViewById(R.id.rank);
 
         // Capture position and set to the TextViews
-        txtrank.setText(users[position]);
+        try {
+            txtrank.setText(users.getJSONObject(position).getString("first_name") + " " + users.getJSONObject(position).getString("last_name"));
+        } catch (JSONException e) {
+
+        }
+
 
         ImageButton messageButton = (ImageButton) itemView.findViewById(R.id.message_button);
         ImageButton toggleButton = (ImageButton) itemView.findViewById(R.id.toggle_button);

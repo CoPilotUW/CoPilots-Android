@@ -32,6 +32,7 @@ public class RiderPool extends AppCompatActivity {
     Button backButton;
     private HTTPRequestWrapper request;
     Context currentContext;
+    private String groupID;
 
     final VolleyCallback successCallback = new VolleyCallback() {
         @Override
@@ -56,7 +57,7 @@ public class RiderPool extends AppCompatActivity {
             });
 
             // Pass results to ListViewAdapter Class
-            adapter = new RiderPoolListAdapter(currentContext, jsonResponse);
+            adapter = new RiderPoolListAdapter(currentContext, jsonResponse, groupID);
             // Binds the Adapter to the ListView
             list.setAdapter(adapter);
             // Capture clicks on ListView items
@@ -83,6 +84,7 @@ public class RiderPool extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rider_pool);
 
+        groupID = getIntent().getStringExtra("cpgroupid").toString();
         currentContext = this;
 
         request = new HTTPRequestWrapper(GlobalConstants.GLOBAL_URL + GlobalConstants.V1_FEATURES, RiderPool.this);

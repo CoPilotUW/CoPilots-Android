@@ -24,10 +24,12 @@ public class RiderPoolListAdapter extends BaseAdapter {
     Context context;
     JSONArray tripSearches;
     LayoutInflater inflater;
+    String groupId;
 
-    public RiderPoolListAdapter(Context context, JSONArray tripSearches) {
+    public RiderPoolListAdapter(Context context, JSONArray tripSearches, String groupID) {
         this.context = context;
         this.tripSearches = tripSearches;
+        this.groupId = groupID;
     }
 
     public int getCount() {
@@ -76,7 +78,7 @@ public class RiderPoolListAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-
+                // Call the apis that sends the invite.
             }
         });
 

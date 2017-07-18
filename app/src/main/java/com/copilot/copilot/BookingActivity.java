@@ -1,4 +1,5 @@
 package com.copilot.copilot;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,9 @@ import com.copilot.helper.VolleyCallback;
 import com.facebook.CallbackManager;
 import com.facebook.internal.Utility;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class BookingActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private HTTPRequestWrapper request;
@@ -52,6 +56,19 @@ public class BookingActivity extends AppCompatActivity {
     final VolleyCallback successCallback = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String response) {
+            // If we are creating a group then put the trip information into the riderpool screen.
+            // Parse the json response that we get back.
+            if (isDriver) {
+                String CPGroupId = "";
+                JSONObject parsedResponse = null;
+                try {
+                    parsedResponse = new JSONObject(response);
+                    nextIntent.putExtra("cpgroupid", parsedResponse.getString("id"));
+                } catch (JSONException e) {
+
+                }
+
+            }
             startActivity(nextIntent);
             finish();
         }

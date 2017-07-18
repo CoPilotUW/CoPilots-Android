@@ -3,19 +3,74 @@ package com.copilot.copilot;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.copilot.com.copilot.global.GlobalConstants;
 import com.copilot.helper.CPUtility;
+import com.copilot.helper.HTTPRequestWrapper;
+import com.copilot.helper.VolleyCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by xiaozhuoyu on 2017-06-20.
  */
 
+
 public class TripDetails extends AppCompatActivity {
+    private HTTPRequestWrapper request;
+    private ViewPager viewPager;
+    private TripDetailsPagerAdapter adapter;
+    private String groupID;
+    private TabLayout tabLayout;
+    private TextView driverName;
+
+    final VolleyCallback successCallback = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String response) {
+            // If we are creating a group then put the trip information into the riderpool screen.
+            // Parse the json response that we get back.
+            JSONObject parsedResponse = null;
+            try {
+                parsedResponse = new JSONObject(response);
+                JSONArray users = parsedResponse.getJSONArray("CPUsers");
+                for (int i = 0; i < users.length(); i++) {
+                    JSONObject user = users.getJSONObject(i);
+                    JSONObject userGroup = user.getJSONObject("cpusergroups");
+                    if (userGroup.getBoolean("isDriver")) {
+                        driverName.setText(user.getString("first_name") + " " + user.getString("last_name"));
+                    }
+                }
+            } catch (JSONException e) {
+
+            }
+        }
+    };
+
+    final VolleyCallback failure = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String response) {
+            Toast.makeText(TripDetails.this, "Could not fetch the trip :( try again later! " + response, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_details);
@@ -25,30 +80,17 @@ public class TripDetails extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Members"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        String from = getIntent().getStringExtra("from").toString();
-        String to = getIntent().getStringExtra("to").toString();
-        int year = getIntent().getIntExtra("year", -1);
-        int month = getIntent().getIntExtra("month", -1);
-        int day = getIntent().getIntExtra("day", -1);
-        int hour = getIntent().getIntExtra("hour", -1);
-        int minute = getIntent().getIntExtra("minute", -1);
+        driverName = (TextView) findViewById(R.id.driver_name);
 
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month, day);
+        viewPager = (ViewPager) findViewById(R.id.pager);
 
-        SimpleDateFormat format1 = new SimpleDateFormat("EEE, MMM d, ''yy");
-        String formatted = CPUtility.formatDate(year, month, day);
+        request = new HTTPRequestWrapper(GlobalConstants.GLOBAL_URL + GlobalConstants.V1_FEATURES, this);
 
-        ArrayList<String> bookingDetails = new ArrayList<String>();
-        bookingDetails.add(from);
-        bookingDetails.add(to);
-        String departureTime = Integer.toString(hour) + ":" + Integer.toString(minute);
-        String date = departureTime + " " + formatted;
-        bookingDetails.add(date);
+        groupID = getIntent().getStringExtra("cpgroupid");
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final TripDetailsPagerAdapter adapter = new TripDetailsPagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount(), bookingDetails);
+        setup();
+        adapter = new TripDetailsPagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount(), getIntent().getStringExtra("cpgroupid").toString());
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -70,4 +112,17 @@ public class TripDetails extends AppCompatActivity {
         });
     }
 
+    private void setup() {
+        Map<String, String> headers = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<String, String>();
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String accessToken = sharedPref.getString(GlobalConstants.ACCESS_TOKEN, "");
+
+        headers.put("x-access-token", accessToken);
+
+        params.put("cpgroupid", groupID);
+
+        request.makeGetRequest(GlobalConstants.GET_TRIP_DETAILS, params, successCallback, failure, headers);
+    }
 }
