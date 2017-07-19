@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.copilot.com.copilot.global.GlobalConstants;
 import com.copilot.copilot.R;
 import com.copilot.copilot.RiderPool;
 import com.copilot.copilot.TripDetails;
@@ -125,7 +126,18 @@ public class TripListViewAdapter extends BaseAdapter {
         });
 
         // TODO: include endpoint in here too
-        viewHolder.requestButton.setOnClickListener(new InvitationOnClickListener(this.parentActivity, userID, trip.getDriverID(), trip.getDriverName()));
+        //
+
+//        Activity parentActivity,
+//        String tripID,
+//        String recipientID,
+//        String recipientName,
+//        String endpoint
+
+        // omit the driver ID for this as the endpoint does not need it
+        viewHolder.requestButton.setOnClickListener(
+            new InvitationOnClickListener(this.parentActivity, trip.getTripID(), "", trip.getDriverName(), GlobalConstants.REQUEST_RIDE)
+        );
         return view;
     }
 }

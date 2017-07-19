@@ -6,22 +6,33 @@ import android.view.View;
 import com.copilot.copilot.modals.InvitationModal;
 
 public class InvitationOnClickListener implements View.OnClickListener {
-    String inviterID;
-    String recipientID;
-    String recipientName;
-    Activity parent;
+    private String tripID;
+    private String recipientID;
+    private String recipientName;
+    private Activity parentActivity;
+    private String endpoint;
 
-    public InvitationOnClickListener(Activity parent, String inviterID, String recipientID, String recipientName) {
-        this.inviterID = inviterID;
+    // TODO: add a success, failure callback into this thing
+    // and an endpoint
+
+    public InvitationOnClickListener(
+        Activity parentActivity,
+        String tripID,
+        String recipientID,
+        String recipientName,
+        String endpoint
+    ) {
+        this.tripID = tripID;
         this.recipientID = recipientID;
         this.recipientName = recipientName;
-        this.parent = parent;
+        this.parentActivity = parentActivity;
+        this.endpoint = endpoint;
     }
 
     @Override
     public void onClick(View v) {
-        InvitationModal modal = InvitationModal.newInstance(inviterID, recipientID, recipientName);
+        InvitationModal modal = InvitationModal.newInstance(tripID, recipientID, recipientName, endpoint);
         // TODO: API call here for success
-        modal.show(parent.getFragmentManager(), "invite_modal");
+        modal.show(parentActivity.getFragmentManager(), "invite_modal");
     }
 }

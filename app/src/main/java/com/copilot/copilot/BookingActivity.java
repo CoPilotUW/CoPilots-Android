@@ -57,7 +57,7 @@ public class BookingActivity extends AppCompatActivity {
     final VolleyCallback dummyCallback = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String response) {
-        finish();
+//        finish();
         }
     };
 
