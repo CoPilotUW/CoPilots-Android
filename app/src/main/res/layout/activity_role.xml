@@ -7,19 +7,11 @@
 
     <include layout="@layout/toolbar" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="100dp"
-        android:paddingBottom="50dp"
-        android:textSize="35dp"
-        android:text="Welcome to CoPilot"
-        android:textColor="@color/white" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -47,6 +39,24 @@
             android:textAllCaps="false"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/text_view_id"
+        android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:text="@string/your_trips" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/rider_pool_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+<!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,6 +66,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"/>
-    </RelativeLayout>
+    </RelativeLayout> -->
 
 </LinearLayout>
