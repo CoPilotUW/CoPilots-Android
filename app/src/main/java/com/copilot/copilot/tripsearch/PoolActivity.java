@@ -31,18 +31,11 @@ import java.util.List;
  */
 
 public class PoolActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
-    // Declare Variables
-    EditText pickupPicker;
-    EditText destinationPicker;
-
     ListView listView;
     TripListViewAdapter adapter;
     SearchView editsearch;
 
     LinearLayout searchWidget;
-
-    PoolSearchDatePicker datePicker;
-    PoolSearchStartingTimePicker pickupTimePicker;
 
     List<TripListItem> tripList = new ArrayList<>();
     @Override
@@ -65,16 +58,11 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
             lastDate.set(year, month, day);
         }
 
-        // so is the intent here to instantiate the sub-search view with those fields as an intent??
-
         // locate our views and initialize them
         listView = (ListView) findViewById(R.id.trip_list);
 
-
         String rawTripsResponse = getIntent().getStringExtra("tripsListResponse");
         tripList = parseFilteredTrips(rawTripsResponse);
-
-
 
         searchWidget = (LinearLayout) findViewById(R.id.trip_search_widget);
         searchWidget.clearFocus();
@@ -93,7 +81,7 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         TextView tripDateSearchView = (TextView) searchWidget.findViewById(R.id.trip_date);
 
         // apparently this cannot format strings... ugh (for now)
-        //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         tripDateSearchView.setText("");
 
         // get pool_search_wrapper as layout to add to
@@ -101,18 +89,14 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         editsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayout sw = (LinearLayout) findViewById(R.id.trip_search_widget);
-
-                int visibility = sw.getVisibility() == View.GONE ? View.VISIBLE : View.GONE;
-                sw.setVisibility(visibility);
+            LinearLayout sw = (LinearLayout) findViewById(R.id.trip_search_widget);
+            int visibility = sw.getVisibility() == View.GONE ? View.VISIBLE : View.GONE;
+            sw.setVisibility(visibility);
             }
         });
 
-        adapter = new TripListViewAdapter(this, tripList, pickup, destination, lastDate, tripHour, tripMinute);
+        adapter = new TripListViewAdapter(this, tripList);
         listView.setAdapter(adapter);
-
-
-
     }
 
     private List<TripListItem> parseFilteredTrips(String rawTripResponse) {
@@ -133,24 +117,13 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
                 String rawTripDate = rawTrip.getString("from_date");
                 Date parsedDate = dateFormat.parse(rawTripDate);
 
-
                 // blindly assume this works (for now)
                 JSONObject driver = rawTrip.getJSONArray("CPUsers").getJSONObject(0);
                 String driverID = driver.getString("id");
                 String driverName = driver.getString("first_name") + " " + driver.getString("last_name");
 
                 // rating pertains to the driver rating field, unused for now...
-
-                // name, pickup, destination, date, time
-                // need: tripID, driverID,
-                parsedTrips.add(new TripListItem(
-                   tripID,
-                   driverID,
-                   driverName,
-                   pickup,
-                   destination,
-                   parsedDate
-                ));
+                parsedTrips.add(new TripListItem(tripID, driverID, driverName, pickup, destination, parsedDate));
             }
         } catch (JSONException e) {
             Log.d("PoolActivity", e.getMessage());

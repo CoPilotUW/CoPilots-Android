@@ -55,31 +55,29 @@ public class BookingActivity extends AppCompatActivity {
     final VolleyCallback dummyCallback = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String response) {
-//            startActivity(nextIntent);
-            finish();
+        finish();
         }
     };
 
     final VolleyCallback successCallback = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String response) {
-            startActivity(nextIntent);
-            finish();
+        startActivity(nextIntent);
+        finish();
         }
     };
 
     final VolleyCallback tripSearchSuccessCallback = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String response) {
-            // assume JSON array
-            Log.d("TRIP SEARCH", "trip search response: " + response);
-            nextIntent.putExtra("tripsListResponse", response);
-            // so maybe it's actually better to pass the trips list in here don't you think?
-            startActivity(nextIntent);
+        // assume JSON array
+        Log.d("TRIP SEARCH", "trip search response: " + response);
+        nextIntent.putExtra("tripsListResponse", response);
+        // so maybe it's actually better to pass the trips list in here don't you think?
+        startActivity(nextIntent);
 
-
-            // TODO: do integration here for trip search
-            finish();
+        // TODO: do integration here for trip search
+        finish();
         }
     };
 

@@ -9,6 +9,8 @@ import java.util.Date;
  */
 
 public class TripListItem {
+    private SimpleDateFormat pickupTimeStringFormat = new SimpleDateFormat("h:mm");
+
     private String tripID;
     private String driverID;
     private String driverName;
@@ -52,9 +54,7 @@ public class TripListItem {
     }
 
     public String getPickupTimeStr() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(this.tripDate);
-        return calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+        return pickupTimeStringFormat.format(tripDate);
     }
 
 }

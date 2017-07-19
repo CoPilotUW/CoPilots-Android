@@ -3,19 +3,26 @@ package com.copilot.copilot.listitems;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.copilot.copilot.R;
 import com.copilot.copilot.modals.InvitationModal;
+import com.copilot.listeners.InvitationOnClickListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by kjiang on 2017-06-20.
@@ -27,33 +34,14 @@ public class TripListViewAdapter extends BaseAdapter {
 
     private List<TripListItem> tripList = new ArrayList<>();
 
-    private String fromLocation = "";
-    private String toLocation = "";
-
-    private Calendar rideDate = null;
-    private int rideHour = -1;
-    private int rideMinute = -1;
-
-    // TODO: add other filtering fields here as needed
     public TripListViewAdapter(
             Activity parent,
-        List<TripListItem> tripList,
-        String fromLocation,
-        String toLocation,
-        Calendar rideDate,
-        int rideHour,
-        int rideMinute
+        List<TripListItem> tripList
     ) {
         this.parent = parent;
         this.inflater = LayoutInflater.from(this.parent);
 
         this.tripList.addAll(tripList);
-
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.rideDate = rideDate;
-        this.rideHour = rideHour;
-        this.rideMinute = rideMinute;
     }
 
     public class ViewHolder {
@@ -62,24 +50,7 @@ public class TripListViewAdapter extends BaseAdapter {
         TextView pickupView;
         TextView destinationView;
         TextView dateView;
-    }
-
-    public class InvitationOnClickListener implements View.OnClickListener {
-        String inviter;
-        String recipient;
-        Activity parent;
-
-        public InvitationOnClickListener(Activity parent, String inviter, String recipient) {
-            this.inviter = inviter;
-            this.recipient = recipient;
-            this.parent = parent;
-        }
-
-        @Override
-        public void onClick(View v) {
-            InvitationModal modal = InvitationModal.newInstance(inviter, recipient);
-            modal.show(parent.getFragmentManager(), "invite_modal");
-        }
+        ImageButton requestButton;
     }
 
     @Override
@@ -113,6 +84,7 @@ public class TripListViewAdapter extends BaseAdapter {
             viewHolder.pickupView = (TextView) view.findViewById(R.id.pickup);
             viewHolder.destinationView = (TextView) view.findViewById(R.id.destination);
             viewHolder.dateView = (TextView) view.findViewById(R.id.pickup_time);
+            viewHolder.requestButton = (ImageButton) view.findViewById(R.id.request_button);
 
             view.setTag(viewHolder);
         } else {
@@ -127,14 +99,12 @@ public class TripListViewAdapter extends BaseAdapter {
         viewHolder.destinationView.setText(trip.getDestination());
         viewHolder.dateView.setText(trip.getPickupTimeStr());
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String userID = sharedPref.getString("id", "");
+        Log.d("TripListViewAdapter:", "user ID: " + userID);
 
-//        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-        viewHolder.imageView.setOnClickListener(new InvitationOnClickListener(this.parent, "Kelvin", trip.getDriverName()));
+        // TODO: include endpoint in here too
+        viewHolder.requestButton.setOnClickListener(new InvitationOnClickListener(this.parent, userID, trip.getDriverID(), trip.getDriverName()));
         return view;
     }
 }
