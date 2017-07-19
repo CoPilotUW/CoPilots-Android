@@ -1,6 +1,7 @@
 package com.copilot.copilot.listitems;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -8,33 +9,30 @@ import java.util.Date;
  */
 
 public class TripListItem {
+    private String tripID;
+    private String driverID;
     private String driverName;
 
     private String pickup;
     private String destination;
 
     private Date tripDate;
-    private int pickupHour;
 
-    private int pickupMinute;
-
-    private String pickupTimeStr;
-
-    public TripListItem(String driverName, String pickup, String destination, Date tripDate, String tripTime) {
+    public TripListItem(String tripID, String driverID, String driverName, String pickup, String destination, Date tripDate) {
+        this.tripID = tripID;
+        this.driverID = driverID;
         this.driverName = driverName;
         this.pickup = pickup;
         this.destination = destination;
         this.tripDate = tripDate;
-        this.pickupTimeStr = tripTime;
+    }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        try {
-            Date d1 = (java.util.Date) sdf.parse(tripTime);
-            this.pickupHour = d1.getHours();
-            this.pickupMinute = d1.getMinutes();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String getTripID() {
+        return tripID;
+    }
+
+    public String getDriverID() {
+        return driverID;
     }
 
     public String getDriverName() {
@@ -53,16 +51,10 @@ public class TripListItem {
         return tripDate;
     }
 
-    public int getPickupHour() {
-        return pickupHour;
-    }
-
-    public int getPickupMinute() {
-        return pickupMinute;
-    }
-
     public String getPickupTimeStr() {
-        return pickupTimeStr;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.tripDate);
+        return calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
     }
 
 }
