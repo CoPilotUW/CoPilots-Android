@@ -52,6 +52,7 @@ public class HTTPRequestWrapper {
                 uri += "&";
             }
             uri = uri.substring(0, uri.lastIndexOf("&"));
+            Log.d("adfasdf", "the url is: " + uri);
         }
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, uri,

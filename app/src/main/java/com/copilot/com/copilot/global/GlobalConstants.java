@@ -17,4 +17,5 @@ public class GlobalConstants {
 
     public static final String SEARCH_ALL_TRIPS = "/rider/search/all";
     public static final String SEARCH_TRIPS = "/Akash/please/implement";
+    public static final String GET_TRIP_DETAILS = "/user/group/details";
 }

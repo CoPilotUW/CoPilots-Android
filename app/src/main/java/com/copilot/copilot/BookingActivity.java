@@ -1,4 +1,5 @@
 package com.copilot.copilot;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ import com.facebook.internal.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class BookingActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
@@ -62,22 +64,35 @@ public class BookingActivity extends AppCompatActivity {
     final VolleyCallback successCallback = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String response) {
-        startActivity(nextIntent);
-        finish();
+            // If we are creating a group then put the trip information into the riderpool screen.
+            // Parse the json response that we get back.
+            if (isDriver) {
+                String CPGroupId = "";
+                JSONObject parsedResponse = null;
+                try {
+                    parsedResponse = new JSONObject(response);
+                    nextIntent.putExtra("cpgroupid", parsedResponse.getString("id"));
+                } catch (JSONException e) {
+
+                }
+
+            }
+            startActivity(nextIntent);
+            finish();
         }
     };
 
     final VolleyCallback tripSearchSuccessCallback = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String response) {
-        // assume JSON array
-        Log.d("TRIP SEARCH", "trip search response: " + response);
-        nextIntent.putExtra("tripsListResponse", response);
-        // so maybe it's actually better to pass the trips list in here don't you think?
-        startActivity(nextIntent);
+            // assume JSON array
+            Log.d("TRIP SEARCH", "trip search response: " + response);
+            nextIntent.putExtra("tripsListResponse", response);
+            // so maybe it's actually better to pass the trips list in here don't you think?
+            startActivity(nextIntent);
 
-        // TODO: do integration here for trip search
-        finish();
+            // TODO: do integration here for trip search
+            finish();
         }
     };
 
