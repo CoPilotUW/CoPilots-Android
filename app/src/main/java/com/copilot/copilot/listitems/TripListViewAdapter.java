@@ -3,6 +3,7 @@ package com.copilot.copilot.listitems;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.copilot.copilot.R;
+import com.copilot.copilot.RiderPool;
+import com.copilot.copilot.TripDetails;
 import com.copilot.copilot.modals.InvitationModal;
 import com.copilot.listeners.InvitationOnClickListener;
 
@@ -29,17 +32,17 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 
 public class TripListViewAdapter extends BaseAdapter {
-    Activity parent;
+    Activity parentActivity;
     LayoutInflater inflater;
 
     private List<TripListItem> tripList = new ArrayList<>();
 
     public TripListViewAdapter(
-            Activity parent,
+            Activity parentActivity,
         List<TripListItem> tripList
     ) {
-        this.parent = parent;
-        this.inflater = LayoutInflater.from(this.parent);
+        this.parentActivity = parentActivity;
+        this.inflater = LayoutInflater.from(this.parentActivity);
 
         this.tripList.addAll(tripList);
     }
@@ -103,8 +106,26 @@ public class TripListViewAdapter extends BaseAdapter {
         String userID = sharedPref.getString("id", "");
         Log.d("TripListViewAdapter:", "user ID: " + userID);
 
+        // TODO: fire intent here
+        final Intent nextIntent = new Intent(this.parentActivity, TripDetails.class);
+        nextIntent.putExtra("cpgroupid", trip.getTripID());
+
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            getApplicationContext().startActivity(nextIntent);
+            }
+        });
+
+        viewHolder.nameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            getApplicationContext().startActivity(nextIntent);
+            }
+        });
+
         // TODO: include endpoint in here too
-        viewHolder.requestButton.setOnClickListener(new InvitationOnClickListener(this.parent, userID, trip.getDriverID(), trip.getDriverName()));
+        viewHolder.requestButton.setOnClickListener(new InvitationOnClickListener(this.parentActivity, userID, trip.getDriverID(), trip.getDriverName()));
         return view;
     }
 }
