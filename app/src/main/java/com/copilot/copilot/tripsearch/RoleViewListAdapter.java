@@ -1,6 +1,7 @@
 package com.copilot.copilot.tripsearch;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,43 +44,30 @@ public class RoleViewListAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         // Declare Variables
-        TextView name;
+        TextView source;
         TextView destination;
-        TextView time;
+        TextView travel_time;
 
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        // TODO This should be a list item specific to trip view
-        View itemView = inflater.inflate(R.layout.activity_rider_pool_list_item, parent, false);
+        View itemView = inflater.inflate(R.layout.activity_role_view_list_item, parent, false);
 
         // Locate the TextViews in listview_item.xml
-        name = (TextView) itemView.findViewById(R.id.name);
+        source = (TextView) itemView.findViewById(R.id.source);
         destination = (TextView) itemView.findViewById(R.id.destination);
-        time = (TextView) itemView.findViewById(R.id.time);
+        travel_time = (TextView) itemView.findViewById(R.id.travel_time);
 
         JSONObject obj;
         JSONObject userObject;
         try {
             obj = trips.getJSONObject(position);
-            userObject = obj.getJSONObject("CPUser");
-            name.setText(userObject.getString("first_name") + " " + userObject.getString("last_name"));
+            source.setText(obj.getString("source"));
             destination.setText(obj.getString("destination"));
-            time.setText(CPUtility.getDateTimeString(obj.getString("date"), obj.getString("time")));
+            travel_time.setText(obj.getString("from_date").substring(0,10));
         } catch (JSONException e) {
 
         }
-
-        ImageButton messageButton = (ImageButton) itemView.findViewById(R.id.message_button);
-
-        messageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Call the apis that sends the invite.
-            }
-        });
-
 
         return itemView;
     }

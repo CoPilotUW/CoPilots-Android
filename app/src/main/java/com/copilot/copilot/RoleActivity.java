@@ -55,7 +55,7 @@ public class RoleActivity extends AppCompatActivity {
 
             }
 
-            list = (ListView) findViewById(R.id.rider_pool_list);
+            list = (ListView) findViewById(R.id.role_view_list);
 
             // Pass results to ListViewAdapter Class
             adapter = new RoleViewListAdapter(currentContext, jsonResponse);
@@ -124,7 +124,7 @@ public class RoleActivity extends AppCompatActivity {
 
         headers.put("x-access-token", accessToken);
 
-        request.makeGetRequest(GlobalConstants.GET_TRIP_SEARCHES, params, successCallback, failure, headers);
+        request.makeGetRequest("/user/groups", params, successCallback, failure, headers);
     }
 
     public void clickRoleButton(View view)
