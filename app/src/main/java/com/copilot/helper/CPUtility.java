@@ -35,6 +35,23 @@ public class CPUtility {
         return senddate;
     }
 
+    // TODO: localization is going to be troublesome huh
+    public static String getDateStringForTripSearch(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        Log.d("CAN YOU PLEASE COOPERATE ", year + " " + month + " " + day);
+
+        cal.set(year, month, day);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+
+
+        SimpleDateFormat tripSearchDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Log.d("I AM DONE WITH THIS", tripSearchDateFormat.format(cal.getTime()));
+
+        return tripSearchDateFormat.format(cal.getTime());
+//        return tripSearchDateFormat.format(d);
+    }
+
     public static String getDateTimeString(String date, String time) {
         Log.d("ASDASD", date);
         Log.d("assd", time);
