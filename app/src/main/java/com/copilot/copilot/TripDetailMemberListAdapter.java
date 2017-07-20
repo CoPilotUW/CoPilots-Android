@@ -62,22 +62,22 @@ public class TripDetailMemberListAdapter extends BaseAdapter {
         }
 
 
-        ImageButton messageButton = (ImageButton) itemView.findViewById(R.id.message_button);
-        ImageButton toggleButton = (ImageButton) itemView.findViewById(R.id.toggle_button);
-        toggleButton.setTag("minus");
-
-        toggleButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // Detect which image it currently is.
-                ImageButton toggleButton = (ImageButton) v.findViewById(R.id.toggle_button);
-
-                if (toggleButton != null && toggleButton.getTag() == "minus") {
-                    toggleButton.setImageResource(R.drawable.remove_2);
-                }
-            }
-        });
+//        ImageButton messageButton = (ImageButton) itemView.findViewById(R.id.message_button);
+//        ImageButton toggleButton = (ImageButton) itemView.findViewById(R.id.toggle_button);
+//        toggleButton.setTag("minus");
+//
+//        toggleButton.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // Detect which image it currently is.
+//                ImageButton toggleButton = (ImageButton) v.findViewById(R.id.toggle_button);
+//
+//                if (toggleButton != null && toggleButton.getTag() == "minus") {
+//                    toggleButton.setImageResource(R.drawable.remove_2);
+//                }
+//            }
+//        });
 
 
         return itemView;

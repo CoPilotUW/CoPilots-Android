@@ -78,7 +78,7 @@ public class InvitationModal extends DialogFragment {
         TextView inviteModalText = (TextView) modalBody.findViewById(R.id.invite_modal_text);
 
         // assume sender driver if recipientID (id of rider to invite) is not empty
-        boolean isSenderDriver = !getArguments().getString("recipientID", "").isEmpty();
+        boolean isSenderDriver = !getArguments().getString("recipientID", "").equals("");
 
         String inviteText = (isSenderDriver ? "Send invitation to " : "Send ride request to ") + recipientName + "?";
         inviteModalText.setText(inviteText);
@@ -110,7 +110,7 @@ public class InvitationModal extends DialogFragment {
                 headers.put("x-access-token", accessToken);
 
                 params.put("cpgroupid", tripID);
-                if (!recipientID.isEmpty()) {
+                if (!recipientID.equals("")) {
                     params.put("cpuserid", recipientID);
                 }
 

@@ -20,4 +20,11 @@ public class GlobalConstants {
     public static final String GET_TRIP_DETAILS = "/user/group/details";
 
     public static final String REQUEST_RIDE = "/rider/group/join";
+
+    public static final String INVITE_RIDER = "/driver/invite";
+
+    public static final String PENDING_INVITES = "/rider/invite/pending";
+    public static final String PENDING_REQUESTS = "/driver/invite/pending";
+
+    public static final String UPDATE_INVITE = "/user/invite/update";
 }
