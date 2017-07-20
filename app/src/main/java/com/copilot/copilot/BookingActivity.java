@@ -186,7 +186,8 @@ public class BookingActivity extends AppCompatActivity {
             };
 
     private void showDate(int year, int month, int day) {
-        dateFieldText.setText(new StringBuilder().append(day).append("/").append(month).append("/").append(year));
+        // TODO: @Aditya Sridhar: PLEASE FIX AND ADD A DATEPICKER IN HERE!
+        dateFieldText.setText(new StringBuilder().append(month).append("/").append(day).append("/").append(year));
     }
 
     public void clickTripBookingFormButton(View view)
@@ -231,8 +232,15 @@ public class BookingActivity extends AppCompatActivity {
 
                 headers.put("x-access-token", accessToken);
 
-                params.put("source", fromField.getText().toString());
-                params.put("destination", toField.getText().toString());
+                String source = fromField.getText().toString();
+                if (!source.isEmpty() && !source.equals("")) {
+                    params.put("source", source);
+                }
+
+                String destination = toField.getText().toString();
+                if (!destination.isEmpty() && !destination.equals("")) {
+                    params.put("destination", destination);
+                }
 
                 if (isDriver) {
                     // Drivers has additional fields to fill in.
@@ -243,10 +251,19 @@ public class BookingActivity extends AppCompatActivity {
                     params.put("drive_to_address", toField.getText().toString());
                     request.makePostRequest(GlobalConstants.CREATE_TRIP_GROUP, params, successCallback, failure, headers);
                 } else {
-                    params.put("date", CPUtility.getDateStringForPost(year, month, day, hour, minute));
-                    params.put("time", Integer.toString(hour) + ":" + Integer.toString(minute));
+                    // TODO: @Aditya Sridhar, I blame you for this! - Kelvin
+                    String hackedTripDateForAPI = dateFieldText.getText().toString();
+
+//                    String tripDateForAPI = CPUtility.getDateStringForTripSearch(year, month, day);
+
+                    if (!hackedTripDateForAPI.isEmpty() && !hackedTripDateForAPI.equals("")) {
+                        params.put("date", hackedTripDateForAPI);
+                    }
+//                    params.put("time", Integer.toString(hour) + ":" + Integer.toString(minute));
                     request.makePostRequest(GlobalConstants.CREATE_TRIP_SEARCH, params, dummyCallback, failure, headers);
                     // GET REQUEST TO RETURN TRIPS!
+
+                    Log.d("BOOKINGACTIVITY", "Searching for trips with source " + source + ", destination " + destination + ", on date " + hackedTripDateForAPI);
                     request.makeGetRequest(GlobalConstants.SEARCH_ALL_TRIPS, params, tripSearchSuccessCallback, failure, headers);
 
                     // /rider/search/all
