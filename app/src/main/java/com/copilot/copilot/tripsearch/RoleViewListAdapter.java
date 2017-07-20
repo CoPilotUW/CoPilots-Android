@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.copilot.copilot.R;
 import com.copilot.copilot.RiderPool;
+import com.copilot.copilot.TripDetails;
 import com.copilot.copilot.invitationlist.InvitationList;
 import com.copilot.helper.CPUtility;
 
@@ -78,7 +79,7 @@ public class RoleViewListAdapter extends BaseAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextIntent = new Intent(context, RiderPool.class);
+                nextIntent = new Intent(context, TripDetails.class);
                 nextIntent.putExtra("cpgroupid", groupId);
                 context.startActivity(nextIntent);
             }
