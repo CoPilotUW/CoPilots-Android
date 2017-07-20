@@ -4,8 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/darkBackground">
 
-
-
     <LinearLayout
         android:id="@+id/pool_search_wrapper"
         android:orientation="vertical"

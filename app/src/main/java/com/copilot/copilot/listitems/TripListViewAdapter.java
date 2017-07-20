@@ -1,56 +1,51 @@
 package com.copilot.copilot.listitems;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.copilot.com.copilot.global.GlobalConstants;
 import com.copilot.copilot.R;
+import com.copilot.copilot.RiderPool;
+import com.copilot.copilot.TripDetails;
+import com.copilot.copilot.modals.InvitationModal;
+import com.copilot.listeners.InvitationOnClickListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by kjiang on 2017-06-20.
  */
 
 public class TripListViewAdapter extends BaseAdapter {
-    Context mContext;
+    Activity parentActivity;
     LayoutInflater inflater;
 
     private List<TripListItem> tripList = new ArrayList<>();
 
-    private String fromLocation = "";
-    private String toLocation = "";
-
-    private Calendar rideDate = null;
-    private int rideHour = -1;
-    private int rideMinute = -1;
-
-    // TODO: add other filtering fields here as needed
     public TripListViewAdapter(
-        Context context,
-        List<TripListItem> tripList,
-        String fromLocation,
-        String toLocation,
-        Calendar rideDate,
-        int rideHour,
-        int rideMinute
+            Activity parentActivity,
+        List<TripListItem> tripList
     ) {
-        this.mContext = context;
-        this.inflater = LayoutInflater.from(this.mContext);
+        this.parentActivity = parentActivity;
+        this.inflater = LayoutInflater.from(this.parentActivity);
 
         this.tripList.addAll(tripList);
-
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.rideDate = rideDate;
-        this.rideHour = rideHour;
-        this.rideMinute = rideMinute;
     }
 
     public class ViewHolder {
@@ -59,6 +54,7 @@ public class TripListViewAdapter extends BaseAdapter {
         TextView pickupView;
         TextView destinationView;
         TextView dateView;
+        ImageButton requestButton;
     }
 
     @Override
@@ -92,6 +88,7 @@ public class TripListViewAdapter extends BaseAdapter {
             viewHolder.pickupView = (TextView) view.findViewById(R.id.pickup);
             viewHolder.destinationView = (TextView) view.findViewById(R.id.destination);
             viewHolder.dateView = (TextView) view.findViewById(R.id.pickup_time);
+            viewHolder.requestButton = (ImageButton) view.findViewById(R.id.request_button);
 
             view.setTag(viewHolder);
         } else {
@@ -105,6 +102,42 @@ public class TripListViewAdapter extends BaseAdapter {
         viewHolder.pickupView.setText(trip.getPickup());
         viewHolder.destinationView.setText(trip.getDestination());
         viewHolder.dateView.setText(trip.getPickupTimeStr());
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String userID = sharedPref.getString("id", "");
+        Log.d("TripListViewAdapter:", "user ID: " + userID);
+
+        // TODO: fire intent here
+        final Intent nextIntent = new Intent(this.parentActivity, TripDetails.class);
+        nextIntent.putExtra("cpgroupid", trip.getTripID());
+
+        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            getApplicationContext().startActivity(nextIntent);
+            }
+        });
+
+        viewHolder.nameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            getApplicationContext().startActivity(nextIntent);
+            }
+        });
+
+        // TODO: include endpoint in here too
+        //
+
+//        Activity parentActivity,
+//        String tripID,
+//        String recipientID,
+//        String recipientName,
+//        String endpoint
+
+        // omit the driver ID for this as the endpoint does not need it
+        viewHolder.requestButton.setOnClickListener(
+            new InvitationOnClickListener(this.parentActivity, trip.getTripID(), "", trip.getDriverName(), GlobalConstants.REQUEST_RIDE)
+        );
         return view;
     }
 }

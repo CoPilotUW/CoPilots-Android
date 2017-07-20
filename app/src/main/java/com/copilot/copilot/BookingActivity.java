@@ -30,6 +30,7 @@ import com.copilot.helper.VolleyCallback;
 import com.facebook.CallbackManager;
 import com.facebook.internal.Utility;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,6 +53,13 @@ public class BookingActivity extends AppCompatActivity {
     private boolean isDriver = false;
     private Intent nextIntent = null;
 
+    // do nothing when API call completes
+    final VolleyCallback dummyCallback = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String response) {
+//        finish();
+        }
+    };
 
     final VolleyCallback successCallback = new VolleyCallback() {
         @Override
@@ -70,6 +78,20 @@ public class BookingActivity extends AppCompatActivity {
 
             }
             startActivity(nextIntent);
+            finish();
+        }
+    };
+
+    final VolleyCallback tripSearchSuccessCallback = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String response) {
+            // assume JSON array
+            Log.d("TRIP SEARCH", "trip search response: " + response);
+            nextIntent.putExtra("tripsListResponse", response);
+            // so maybe it's actually better to pass the trips list in here don't you think?
+            startActivity(nextIntent);
+
+            // TODO: do integration here for trip search
             finish();
         }
     };
@@ -121,6 +143,7 @@ public class BookingActivity extends AppCompatActivity {
         if (isDriver) {
             carModelField = (EditText) findViewById(R.id.carModelField);
             carNumber = (EditText) findViewById(R.id.carNumber);
+            nextIntent = new Intent(this, TripDetails.class);
         }
 
     }
@@ -168,10 +191,6 @@ public class BookingActivity extends AppCompatActivity {
 
     public void clickTripBookingFormButton(View view)
     {
-        if (isDriver) {
-            nextIntent = new Intent(this, TripDetails.class);
-        }
-        
         switch(view.getId())
         {
             case R.id.submitButton:
@@ -223,12 +242,14 @@ public class BookingActivity extends AppCompatActivity {
                     params.put("to_date", CPUtility.getDateStringForPost(year, month, day, hour, minute));
                     params.put("drive_to_address", toField.getText().toString());
                     request.makePostRequest(GlobalConstants.CREATE_TRIP_GROUP, params, successCallback, failure, headers);
-
-
                 } else {
                     params.put("date", CPUtility.getDateStringForPost(year, month, day, hour, minute));
                     params.put("time", Integer.toString(hour) + ":" + Integer.toString(minute));
-                    request.makePostRequest(GlobalConstants.CREATE_TRIP_SEARCH, params, successCallback, failure, headers);
+                    request.makePostRequest(GlobalConstants.CREATE_TRIP_SEARCH, params, dummyCallback, failure, headers);
+                    // GET REQUEST TO RETURN TRIPS!
+                    request.makeGetRequest(GlobalConstants.SEARCH_ALL_TRIPS, params, tripSearchSuccessCallback, failure, headers);
+
+                    // /rider/search/all
                 }
 
                 break;

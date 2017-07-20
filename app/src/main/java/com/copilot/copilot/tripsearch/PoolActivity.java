@@ -15,31 +15,29 @@ import com.copilot.copilot.RiderJson;
 import com.copilot.copilot.listitems.TripListItem;
 import com.copilot.copilot.listitems.TripListViewAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xiaozhuoyu on 2017-05-27.
  */
 
 public class PoolActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
-    // Declare Variables
-    EditText pickupPicker;
-    EditText destinationPicker;
-
     ListView listView;
     TripListViewAdapter adapter;
     SearchView editsearch;
 
     LinearLayout searchWidget;
 
-    PoolSearchDatePicker datePicker;
-    PoolSearchStartingTimePicker pickupTimePicker;
-
-    ArrayList<TripListItem> tripList = new ArrayList<>();
+    List<TripListItem> tripList = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,28 +58,11 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
             lastDate.set(year, month, day);
         }
 
-        // so is the intent here to instantiate the sub-search view with those fields as an intent??
-
         // locate our views and initialize them
         listView = (ListView) findViewById(R.id.trip_list);
 
-
-        // get the jsons (mock what we have in API)
-        for (int i = 0; i < RiderJson.tripJSONs.length; i++) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                JSONObject trip = new JSONObject(RiderJson.tripJSONs[i]);
-                tripList.add(new TripListItem(
-                    trip.getString("name"),
-                    trip.getString("pickup"),
-                    trip.getString("destination"),
-                    sdf.parse(trip.getString("tripDate")),
-                    trip.getString("pickupTime")
-                ));
-            } catch (Exception e){
-                Log.v("test", e.toString());
-            }
-        }
+        String rawTripsResponse = getIntent().getStringExtra("tripsListResponse");
+        tripList = parseFilteredTrips(rawTripsResponse);
 
         searchWidget = (LinearLayout) findViewById(R.id.trip_search_widget);
         searchWidget.clearFocus();
@@ -100,7 +81,7 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         TextView tripDateSearchView = (TextView) searchWidget.findViewById(R.id.trip_date);
 
         // apparently this cannot format strings... ugh (for now)
-        //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         tripDateSearchView.setText("");
 
         // get pool_search_wrapper as layout to add to
@@ -108,77 +89,52 @@ public class PoolActivity extends AppCompatActivity implements SearchView.OnQuer
         editsearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinearLayout sw = (LinearLayout) findViewById(R.id.trip_search_widget);
-
-                int visibility = sw.getVisibility() == View.GONE ? View.VISIBLE : View.GONE;
-                sw.setVisibility(visibility);
+            LinearLayout sw = (LinearLayout) findViewById(R.id.trip_search_widget);
+            int visibility = sw.getVisibility() == View.GONE ? View.VISIBLE : View.GONE;
+            sw.setVisibility(visibility);
             }
         });
 
-        adapter = new TripListViewAdapter(this, tripList, pickup, destination, lastDate, tripHour, tripMinute);
+        adapter = new TripListViewAdapter(this, tripList);
         listView.setAdapter(adapter);
-
-
-
     }
 
+    private List<TripListItem> parseFilteredTrips(String rawTripResponse) {
+        JSONArray jsonResponse = new JSONArray();
+        List<TripListItem> parsedTrips = new ArrayList<>();
 
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_pool);
-//
-//        // Locate the ListView in listview_main.xml
-//        list = (ListView) findViewById(R.id.listview);
-//
-//        datePicker = (EditText) findViewById(R.id.datePicker);
-//
-//
-//        // Pass results to ListViewAdapter Class
-//        int lastStartingHour = getIntent().getIntExtra("fromHour", -1);
-//        int lastStartingMinute = getIntent().getIntExtra("fromMinute", -1);
-//        int lastEndingHour = getIntent().getIntExtra("toHour", -1);
-//        int lastEndingMinute = getIntent().getIntExtra("toMinute", -1);
-//        String lastLocation = !getIntent().hasExtra("destination") ? null : getIntent().getStringExtra("destination");
-//
-//        Calendar lastDate = null;
-//
-//        // Locate the EditText in listview_main.xml
-//        editsearch = (SearchView) findViewById(R.id.search);
-//        editsearch.setOnQueryTextListener(this);
-//
-//        editsearch.setQueryHint("Search for rides...");
-//        int searchPlateId = editsearch.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-//        View searchPlate = editsearch.findViewById(searchPlateId);
-//        if (searchPlate!=null) {
-//            searchPlate.setBackgroundColor(Color.DKGRAY);
-//            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-//            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
-//            if (searchText!=null) {
-//                searchText.setTextColor(Color.WHITE);
-//                searchText.setHintTextColor(Color.WHITE);
-//            }
-//        }
-//
-//        // Create the appropriate search filter views
-//        picker = new PoolSearchDatePicker(this, R.id.datePicker, adapter);
-//
-//        startingPicker = new PoolSearchStartingTimePicker(this, R.id.beginningTimePicker, adapter);
-//
-//        endingTimePicker = new PoolSearchEndingTimePicker(this, R.id.endingTimePicker, adapter);
-//
-//        // Display the correct information from the booking screen.
-//        if (lastStartingHour != -1) {
-//            startingPicker.setText(lastStartingMinute, lastStartingHour);
-//        }
-//
-//        if (lastEndingHour != -1) {
-//            endingTimePicker.setText(lastEndingMinute, lastEndingHour);
-//        }
-//
-//        if (lastDate != null) {
-//            picker.setText(year, month, day);
-//        }
-//    }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        try {
+            jsonResponse = new JSONArray(rawTripResponse);
+            for (int i = 0; i < jsonResponse.length(); i++) {
+                JSONObject rawTrip = jsonResponse.getJSONObject(i);
+
+                String tripID = rawTrip.getString("id");
+                String pickup = rawTrip.getString("source");
+                String destination = rawTrip.getString("destination");
+
+                // 2017-07-18T19:23:41.000Z
+                String rawTripDate = rawTrip.getString("from_date");
+                Date parsedDate = dateFormat.parse(rawTripDate);
+
+                // blindly assume this works (for now)
+                JSONObject driver = rawTrip.getJSONArray("CPUsers").getJSONObject(0);
+                String driverID = driver.getString("id");
+                String driverName = driver.getString("first_name") + " " + driver.getString("last_name");
+
+                // rating pertains to the driver rating field, unused for now...
+                parsedTrips.add(new TripListItem(tripID, driverID, driverName, pickup, destination, parsedDate));
+            }
+        } catch (JSONException e) {
+            Log.d("PoolActivity", e.getMessage());
+            return new ArrayList<>();
+        } catch (ParseException e) {
+            Log.d("PoolActivity", e.getMessage());
+            return new ArrayList<>();
+        }
+        return parsedTrips;
+    }
+
 
     @Override
     public boolean onQueryTextSubmit(String query) {
