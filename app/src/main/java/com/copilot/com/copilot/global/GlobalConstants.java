@@ -7,6 +7,7 @@ package com.copilot.com.copilot.global;
 public class GlobalConstants {
     public static final String GLOBAL_URL = "http://copilot-services.herokuapp.com/";
     public static final String AUTH_ENDPOINT = "auth/facebook/token";
+    public static final String USER_PROFILE_ENDPOINT = "/user/profile";
     public static final String CREATE_TRIP_SEARCH = "/trip/book";
     public static final String CREATE_TRIP_GROUP = "/group/create";
     public static final String ACCESS_TOKEN = "x-access-token";

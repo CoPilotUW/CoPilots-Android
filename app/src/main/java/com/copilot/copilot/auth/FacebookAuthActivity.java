@@ -12,7 +12,10 @@ import android.util.StringBuilderPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.copilot.com.copilot.global.GlobalConstants;
 import com.copilot.copilot.R;
@@ -36,6 +39,7 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import android.app.Dialog;
 
 /**
  * Created by Akash on 2017-06-30.
