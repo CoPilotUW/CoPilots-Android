@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#222F2F"
+    android:id="@+id/rank_dialog_main_layout"
+    android:label="My Activity Title"
+    android:padding="2dip">
+
+    <Button android:id="@+id/rank_dialog_button"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:enabled="false"
+        android:gravity="center"
+        android:textSize="20dip" android:layout_width="fill_parent"
+        android:textAlignment="gravity"
+        android:background="#444440"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/rank_dialog_button_lin_layout">
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dip"
+            android:paddingTop="15dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:longClickable="false"
+            android:background="@null"
+            android:layout_alignParentLeft="true"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textSize="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:ems="10"
+            android:textStyle="bold"
+            android:inputType="textPersonName"
+            android:text="Thanks for riding with us!" />
+
+        <EditText
+            android:id="@+id/editText3"
+            android:longClickable="false"
+            android:clickable="false"
+            android:layout_height="wrap_content"
+            android:layout_width = "fill_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@null"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="23dip"
+            android:layout_below="@+id/editText4"
+            android:ems="10"
+            android:textSize="17dp"
+            android:inputType="textPersonName"
+            android:text="Please rate your passengers" />
+
+    </LinearLayout>
+    <!-- android:textColor="#FFF8C6" -->
+</RelativeLayout>
