@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.media.Rating;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -53,7 +54,11 @@ public class TripDetails extends AppCompatActivity {
     private String groupID;
     private TabLayout tabLayout;
     private TextView driverName;
+    private String firstName = "";
+    private String lastName = "";
     private int count;
+    ArrayList<String> userIds = new ArrayList<>();
+    ArrayList<RatingBar> ratingBars = new ArrayList<>();
     ArrayList<TextView> passengers = new ArrayList<TextView>();
 
     final VolleyCallback successCallback = new VolleyCallback() {
@@ -79,17 +84,27 @@ public class TripDetails extends AppCompatActivity {
                         tx.setText(user.getString("first_name") + " " + user.getString("last_name"));
                     }
 
-                    passengers.add(tx);
-                    System.out.println(user.getString("first_name"));
+                    if (!(user.getString("first_name").equals(TripDetails.this.firstName) && user.getString("last_name").equals(TripDetails.this.lastName))) {
+                        passengers.add(tx);
+                        userIds.add(user.getString("id"));
+                    }
                 }
+            } catch (JSONException e) {
 
-                TextView tx_1 = new TextView(getApplicationContext());
-                tx_1.setText("John Smith");
+            }
+        }
+    };
 
-                TextView tx_2 = new TextView(getApplicationContext());
-                tx_2.setText("Barack Obama");
-                passengers.add(tx_1);
-                passengers.add(tx_2);
+    final VolleyCallback userInfoSuccessCallback = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String response) {
+            // If we are creating a group then put the trip information into the riderpool screen.
+            // Parse the json response that we get back.
+            JSONObject parsedResponse = null;
+            try {
+                parsedResponse = new JSONObject(response);
+                TripDetails.this.firstName = parsedResponse.getString("first_name").toString();
+                TripDetails.this.lastName = parsedResponse.getString("last_name").toString();
             } catch (JSONException e) {
 
             }
@@ -188,6 +203,8 @@ public class TripDetails extends AppCompatActivity {
                     layout.addView(tx);
                     layout.addView(ratingBar);
 
+                    ratingBars.add(ratingBar);
+
                     rankLayout.addView(layout);
                 }
 
@@ -214,15 +231,19 @@ public class TripDetails extends AppCompatActivity {
 
     private void setup(VolleyCallback callback) {
         Map<String, String> headers = new HashMap<String, String>();
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params_1 = new HashMap<String, String>();
+        Map<String, String> params_2 = new HashMap<String, String>();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String accessToken = sharedPref.getString(GlobalConstants.ACCESS_TOKEN, "");
+        String user_id = sharedPref.getString(GlobalConstants.USER_ID, "");
 
         headers.put("x-access-token", accessToken);
 
-        params.put("cpgroupid", groupID);
+        params_1.put("cpgroupid", groupID);
+        params_2.put("cpuserid", user_id);
 
-        request.makeGetRequest(GlobalConstants.GET_TRIP_DETAILS, params, callback, failure, headers);
+        request.makeGetRequest(GlobalConstants.USER_PROFILE_ENDPOINT, params_2, userInfoSuccessCallback, failure, headers);
+        request.makeGetRequest(GlobalConstants.GET_TRIP_DETAILS, params_1, callback, failure, headers);
     }
 }
