@@ -160,6 +160,11 @@ public class TripDetails extends AppCompatActivity {
         });
 
         final Button endTripButton = (Button) findViewById(R.id.end_trip_button);
+        if (passengers.size() <= 0) {
+            endTripButton.setEnabled(false);
+            endTripButton.setText("No passengers to rate");
+            endTripButton.setBackgroundColor(Color.parseColor("#222F2F"));
+        }
         endTripButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Dialog rankDialog = new Dialog(TripDetails.this);
@@ -209,6 +214,7 @@ public class TripDetails extends AppCompatActivity {
                 }
 
                 updateButton.setBackgroundColor(Color.parseColor("#444f4f"));
+
                 updateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
