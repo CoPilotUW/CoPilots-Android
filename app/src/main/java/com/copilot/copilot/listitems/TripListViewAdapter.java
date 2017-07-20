@@ -136,7 +136,7 @@ public class TripListViewAdapter extends BaseAdapter {
 
         // omit the driver ID for this as the endpoint does not need it
         viewHolder.requestButton.setOnClickListener(
-            new InvitationOnClickListener(this.parentActivity, trip.getTripID(), "", trip.getDriverName(), GlobalConstants.INVITE_RIDER)
+            new InvitationOnClickListener(this.parentActivity, trip.getTripID(), "", trip.getDriverName(), GlobalConstants.REQUEST_RIDE)
         );
         return view;
     }

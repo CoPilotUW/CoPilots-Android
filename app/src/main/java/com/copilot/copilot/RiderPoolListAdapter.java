@@ -96,7 +96,7 @@ public class RiderPoolListAdapter extends BaseAdapter {
             String userID = userObject.getString("id");
 
             // third argument is the recipient ID, sorry!
-            messageButton.setOnClickListener(new InvitationOnClickListener(parentActivity, groupId, userID, userObject.getString("first_name"), GlobalConstants.REQUEST_RIDE));
+            messageButton.setOnClickListener(new InvitationOnClickListener(parentActivity, groupId, userID, userObject.getString("first_name"), GlobalConstants.INVITE_RIDER));
         } catch (JSONException e) {
             Log.d("adfadf", "did we run into an exception");
         }
