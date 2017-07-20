@@ -2,6 +2,8 @@ package com.copilot.helper;
 
 import android.util.Log;
 
+import org.json.JSONException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -74,6 +76,21 @@ public class CPUtility {
             Log.d("ASDASD", e.toString());
         }
 
+        return returnString;
+    }
+
+    public static String convertServerDateString(String serverStr) {
+        String returnString = "";
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat jsonDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        SimpleDateFormat returnFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
+        try {
+            Date parsedDate = jsonDateFormat.parse(serverStr);
+            cal.setTime(parsedDate);
+            returnString = returnFormat.format(cal.getTime());
+        } catch (ParseException e) {
+
+        }
         return returnString;
     }
 

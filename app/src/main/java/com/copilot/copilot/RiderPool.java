@@ -1,5 +1,6 @@
 package com.copilot.copilot;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ public class RiderPool extends AppCompatActivity {
     private HTTPRequestWrapper request;
     Context currentContext;
     private String groupID;
+    private String token;
+    private Activity thisActivity;
 
     final VolleyCallback successCallback = new VolleyCallback() {
         @Override
@@ -57,7 +60,7 @@ public class RiderPool extends AppCompatActivity {
             });
 
             // Pass results to ListViewAdapter Class
-            adapter = new RiderPoolListAdapter(currentContext, jsonResponse, groupID);
+            adapter = new RiderPoolListAdapter(thisActivity, currentContext, jsonResponse, groupID, request, token);
             // Binds the Adapter to the ListView
             list.setAdapter(adapter);
             // Capture clicks on ListView items
@@ -89,6 +92,8 @@ public class RiderPool extends AppCompatActivity {
 
         request = new HTTPRequestWrapper(GlobalConstants.GLOBAL_URL + GlobalConstants.V1_FEATURES, RiderPool.this);
 
+        this.thisActivity = this;
+
         setupAdapter();
 
     }
@@ -100,6 +105,7 @@ public class RiderPool extends AppCompatActivity {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String accessToken = sharedPref.getString(GlobalConstants.ACCESS_TOKEN, "");
+        this.token = accessToken;
 
         headers.put("x-access-token", accessToken);
 

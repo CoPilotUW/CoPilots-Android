@@ -32,7 +32,6 @@ import java.util.Map;
  */
 
 public class TripDetailsMembersFragment extends Fragment {
-    // Hard coded json for trip member.
     ListView list;
     TripDetailMemberListAdapter adapter;
     Button showRiderPool;
