@@ -43,7 +43,7 @@ public class InvitationListDriverInvitesFragment extends Fragment {
         @Override
         public void onSuccessResponse(String response) {
             // Parse the json response that we get back.
-            Log.d("asdfasf", response);
+            Log.d("FETCH_INVITE_SUCCESS", response);
             try {
                 invites = new JSONArray(response);
                 setup();
