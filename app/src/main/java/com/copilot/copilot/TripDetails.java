@@ -160,11 +160,6 @@ public class TripDetails extends AppCompatActivity {
         });
 
         final Button endTripButton = (Button) findViewById(R.id.end_trip_button);
-        if (passengers.size() <= 0) {
-            endTripButton.setEnabled(false);
-            endTripButton.setText("No passengers to rate");
-            endTripButton.setBackgroundColor(Color.parseColor("#222F2F"));
-        }
         endTripButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Dialog rankDialog = new Dialog(TripDetails.this);
@@ -176,6 +171,11 @@ public class TripDetails extends AppCompatActivity {
 
                 LinearLayout rankLayout = rankDialog.findViewById(R.id.rank_dialog_button_lin_layout);
                 count = passengers.size();
+
+                if (passengers.size() <= 0) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "No passengers to rate!", Toast.LENGTH_LONG);
+                    toast.show();
+                }
 
                 for (TextView tx : passengers) {
                     RatingBar ratingBar = new RatingBar(TripDetails.this, null, android.R.attr.ratingBarStyle);
@@ -226,11 +226,15 @@ public class TripDetails extends AppCompatActivity {
                 });
                 //now that the dialog is set up, it's time to show it
                 updateButton.setEnabled(false);
-                rankDialog.show();
-                Window window = rankDialog.getWindow();
-                window.setLayout(1100, 1100);
 
-                updateButton.setEnabled(true);
+                if (passengers.size() <= 0) {
+
+                } else {
+                    rankDialog.show();
+                    Window window = rankDialog.getWindow();
+                    window.setLayout(1100, 1100);
+                    updateButton.setEnabled(true);
+                }
             }
         });
     }

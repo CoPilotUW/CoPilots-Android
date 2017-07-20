@@ -28,7 +28,7 @@ import org.json.JSONObject;
 public class RoleViewListAdapter extends BaseAdapter {
     Context context;
     JSONArray trips;
-    String groupId;
+
     LayoutInflater inflater;
     private Intent nextIntent = null;
 
@@ -49,12 +49,12 @@ public class RoleViewListAdapter extends BaseAdapter {
         return 0;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         // Declare Variables
         TextView source;
         TextView destination;
         TextView travel_time;
-
+        String groupId = "";
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -79,9 +79,14 @@ public class RoleViewListAdapter extends BaseAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextIntent = new Intent(context, TripDetails.class);
-                nextIntent.putExtra("cpgroupid", groupId);
-                context.startActivity(nextIntent);
+                try {
+                    JSONObject obj = trips.getJSONObject(position);
+                    String groupId_2 = obj.getString("id");
+                    nextIntent = new Intent(context, TripDetails.class);
+                    nextIntent.putExtra("cpgroupid", groupId_2);
+                    context.startActivity(nextIntent);
+                } catch (Exception e) {
+                }
             }
         });
 
